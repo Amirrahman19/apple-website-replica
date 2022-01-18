@@ -121,6 +121,9 @@ input#search-bar{
   right: -45px;
 } */
 
+.carousel-indicators {
+  bottom: -60px;
+}
 .wrap{
   width: 30%;
   position: absolute;
