@@ -1,0 +1,468 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Socodeur</title>
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">SP_IT</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
+        <ul class="navbar-nav">
+
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="customization.html">Reviews</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="Promotion.html">Promotions</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href=#">Category</a>
+          </li> -->
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="Products.html" id="iPhone">iPhone</a>
+              <a class="dropdown-item" href="Products.html" id="Mac">Macbook Pro</a>
+              <a class="dropdown-item" href="Products.html" id="iPad">iPad</a>
+            </div>
+          </div>
+          <li class="nav-item">
+            <a class="nav-link" href="Products.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Login.html">Login</a>
+          </li>
+          <button class="btn btn-danger" id="logout" href="Login.html">Logout</button>
+          <form class="search-container">
+            <input type="text" id="search-bar" placeholder="Search">
+            <!-- <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a> -->
+          </form>
+
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header>
+    <!--First Image started-->
+
+    <div class="container">
+      <div class="row text-center justify-content-center pt-5 cl-white" style="margin-top:17%;">
+        <div class="container-fluid mx-4">
+
+
+          <h2 id="fh2">WE APPRECIATE YOUR REVIEW!</h2>
+          <h6 id="fh6">Your review will help us to improve our web hosting quality products, and customer services.</h6>
+
+
+          <form>
+            <div class="form-group row">
+              <label for="fname" class="col-sm-3 col-form-label">Full name:</label>
+              <div class="col-sm-9">
+                <input type="text" class="feedbackInfo" id="fname" name="fname" placeholder="Full name..." required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-3 col-form-label">E-mail:</label>
+              <div class="col-sm-9">
+                <input type="email" class="feedbackInfo" id="email" name="email" placeholder="E-mail address..."
+                  required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="phone" class="col-sm-3 col-form-label">Phone:</label>
+              <div class="col-sm-9">
+                <input type="tel" class="feedbackInfo" id="phone" name="phone" placeholder="Phone number..." required>
+              </div>
+            </div>
+
+            <!-- Rating -->
+            <br />
+            <br />
+            <label>Rate this website!
+            </label>
+            <fieldset class="selections">
+              <label>Needs Work</label>
+              <input type="radio" name="pageRating" value="0">
+              <input type="radio" name="pageRating" value="1">
+              <input type="radio" name="pageRating" value="2">
+              <input type="radio" name="pageRating" value="3">
+              <input type="radio" name="pageRating" value="4">
+              <input type="radio" name="pageRating" value="5">
+              <input type="radio" name="pageRating" value="6">
+              <input type="radio" name="pageRating" value="7">
+              <input type="radio" name="pageRating" value="8">
+              <input type="radio" name="pageRating" value="9">
+              <input type="radio" name="pageRating" value="10">
+              <label>Great</label>
+            </fieldset>
+            <!-- Interest in site -->
+            <br>
+            <label for="comment">
+              Visiting again?
+            </label>
+            <br />
+            <br />
+            <br />
+            <div id="newRow">
+              Very unlikely <input type="range" min="0" max="10" value="5" step="1" name="q4" /> Very likely
+            </div>
+            <br />
+            <br />
+            <label for="insta">
+              Your Instagram username:
+
+            </label>
+            <input id="insta" class="feedbackInfo" type="text" placeholder="Username" required><br>
+            <br />
+            <!--Additional comments  -->
+            <label for="comment">
+              Additional Comments:
+
+            </label>
+            <br>
+            <textarea id="comment" class="feedbackInfo comment" rows="5" maxlength="500"
+              placeholder="Additional comments"></textarea>
+            <div class="container">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#submit"
+                onclick="alertMsg()">
+                Submit
+              </button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+
+      </div>
+      <div class="row justify-content-center pt-5 ">
+
+      </div>
+
+
+    </div>
+    <!-- First Image area Ended -->
+  </header>
+
+  <body>
+    <section id="testimonials">
+      <!--heading--->
+      <div class="testimonial-heading">
+        <span>Comments</span>
+        <h4>Clients Says</h4>
+      </div>
+      <!--testimonials-box-container------>
+      <div class="testimonial-box-container">
+        <!--BOX-1-------------->
+        <div class="testimonial-box">
+          <!--top------------------------->
+          <div class="box-top">
+            <!--profile----->
+            <div class="profile">
+              <!--img---->
+              <div class="profile-img">
+                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+              </div>
+              <!--name-and-username-->
+              <div class="name-user">
+                <strong>Liam mendes</strong>
+                <span>@liammendes</span>
+              </div>
+            </div>
+            <!--reviews------>
+            <div class="reviews">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <!--Empty star-->
+            </div>
+          </div>
+          <!--Comments---------------------------------------->
+          <div class="client-comment">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
+              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
+              incidunt blanditiis sed atque cumque.</p>
+          </div>
+        </div>
+        <!--BOX-2-------------->
+        <div class="testimonial-box">
+          <!--top------------------------->
+          <div class="box-top">
+            <!--profile----->
+            <div class="profile">
+              <!--img---->
+              <div class="profile-img">
+                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+              </div>
+              <!--name-and-username-->
+              <div class="name-user">
+                <strong>Noah Wood</strong>
+                <span>@noahwood</span>
+              </div>
+            </div>
+            <!--reviews------>
+            <div class="reviews">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <!--Empty star-->
+            </div>
+          </div>
+          <!--Comments---------------------------------------->
+          <div class="client-comment">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
+              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
+              incidunt blanditiis sed atque cumque.</p>
+          </div>
+        </div>
+        <!--BOX-3-------------->
+        <div class="testimonial-box">
+          <!--top------------------------->
+          <div class="box-top">
+            <!--profile----->
+            <div class="profile">
+              <!--img---->
+              <div class="profile-img">
+                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+              </div>
+              <!--name-and-username-->
+              <div class="name-user">
+                <strong>Oliver Queen</strong>
+                <span>@oliverqueen</span>
+              </div>
+            </div>
+            <!--reviews------>
+            <div class="reviews">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <!--Empty star-->
+            </div>
+          </div>
+          <!--Comments---------------------------------------->
+          <div class="client-comment">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
+              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
+              incidunt blanditiis sed atque cumque.</p>
+          </div>
+        </div>
+        <!--BOX-4-------------->
+        <div class="testimonial-box">
+          <!--top------------------------->
+          <div class="box-top">
+            <!--profile----->
+            <div class="profile">
+              <!--img---->
+              <div class="profile-img">
+                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
+              </div>
+              <!--name-and-username-->
+              <div class="name-user">
+                <strong>Barry Allen</strong>
+                <span>@barryallen</span>
+              </div>
+            </div>
+            <!--reviews------>
+            <div class="reviews">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <!--Empty star-->
+            </div>
+          </div>
+          <!--Comments---------------------------------------->
+          <div class="client-comment">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
+              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
+              incidunt blanditiis sed atque cumque.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+  <!-- <div class="container mt-5">
+        <h2>Request Form</h2>
+        <div class="mt-5">
+            <form class="form-horizontal" action="#">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="product">Product Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="product" placeholder="Enter Product Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pwd">User Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="pwd" placeholder="Enter your name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="pwd">Description:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5" cols="2"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="reset" class="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> -->
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-sm-12"></div>
+        <div class="col-sm-12 ">Hybrid app</div>
+        <div class="col-md-2 col-md-offset-1">
+          <ul>
+            <li><a href="Hybrid-digitale.html" class="cl-dar">Hybrid app</a></li>
+            <li>Twitter Clone</li>
+            <li>WhatsApp clone</li>
+            <li>Tinder Clone</li>
+            <li>Instagram Clone</li>
+            <li>Facebook clone</li>
+          </ul>
+        </div>
+        <div class="col-sm-12">
+          <a href="Native-digital.html" class="cl-dar">
+            Native app
+          </a>
+        </div>
+        <div class="col-md-2">
+          <ul>
+            <li>
+              <a href="Native-digital.html" class="cl-dar">
+                Native app
+              </a>
+            </li>
+            <li>Snap chat</li>
+
+          </ul>
+        </div>
+
+
+        <div class="col-sm-12">Customization</div>
+        <div class="col-md-2">
+          <ul>
+            <li>
+              <a href="customization.html" class="cl-dar">
+                Customization
+              </a>
+            </li>
+            <li>I have a request</li>
+            <li>About Customization</li>
+
+          </ul>
+        </div>
+        <div class="col-sm-12">My Account</div>
+
+        <div class="col-md-2">
+          <ul>
+            <li>My Account</li>
+
+            <li>Login</li>
+            <li>Signup</li>
+          </ul>
+        </div>
+        <div class="col-sm-12">About socodeur</div>
+        <div class="col-md-2">
+          <ul>
+            <li>
+              <a href="about.html" class="cl-dar">
+                About socodeur
+              </a>
+
+            </li>
+            <li>Mobile Applications</li>
+            <li>Support Store</li>
+            <li>Customization</li>
+          </ul>
+        </div>
+        <div class="col-sm-12">Support</div>
+        <div class="col-md-2">
+          <ul>
+            <li>Support</li>
+            <li>Problem</li>
+            <li>Contact Us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+
+      <div class="row">
+        <div class="footerWrap col">
+          <p>More ways to shop: Visit an <a>Socodeur Store</a>, call 1-800-MY-Socodeur, or <a>find a reseller</a>.</p>
+
+        </div>
+        <div class="col text-right">
+          <p>
+            <a href="Languages.html">
+              <img src="images/flags/usa.png" /><span class="cl-dar">&nbsp; United State</span>
+            </a>
+          </p>
+
+        </div>
+      </div>
+      <hr />
+      <div class="footerWrap col-md-10 col-md-offset-1">
+        <div class="copyright col-md-4">
+          <p>Copyright © 2017 Socodeur All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/img/bootstrap-formhelpers-currencies.flags.png" />
+
+</body>
+
+</html>
