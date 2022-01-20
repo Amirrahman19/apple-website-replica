@@ -13,74 +13,49 @@
   <link href="css/modern-business.css" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
     integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-  
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-      
+
 <body>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">SP_IT!</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">SP IT!</a>
       <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
         <ul class="navbar-nav">
-
-
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="customization.html">Reviews</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="Promotion.html">Promotions</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href=#">Category</a>
-          </li> -->
 
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Category
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="Products.html" id="iPhone">iPhone</a>
-              <a class="dropdown-item" href="Products.html" id="Mac">Macbook Pro</a>
-              <a class="dropdown-item" href="Products.html" id="iPad">iPad</a>
-            </div>
-          </div>
+          <li class="nav-item">
+            <a class="nav-link" href="Category.html">Category</a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="Products.html">Products</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Profile.html">Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="Login.html">Login</a>
+          <li class="nav-item" id="loginout">
           </li>
-          <button class="btn btn-danger" id="logout" href="Login.html">Logout</button>
-          <form class="search-container">
-            <input type="text" id="search-bar" placeholder="Search">
-            <!-- <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a> -->
-          </form>
-
-          <!--<li class="nav-item">
-                        <a class="nav-link" href="#">My Account</a>
-                    </li>-->
+         
         </ul>
       </div>
-    </div>
+    
+        <form class="d-flex">
+          <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div> 
   </nav>
   <header>
     <!--First Image started-->
 
     <div class="w-screen pt-5 bg-white" style="margin-top: 0rem !important;">
+     
       <div class="row text-center justify-content-center pt-5 cl-dar">
-        <h1 class="display-2">SP_IT!</h1>
-      </div>
-      <div class="row text-center justify-content-center cl-dar">
-        <h3>An online e-store to allow the public to purchase pre-loved IT products and accessories at excellent prices.</h3>
-        <h3><i><a href="Promotion.html" style="color: black;">View All Promotions</a></i></b></h3>
+        <h3>An online e-store to allow the public to purchase pre-loved IT products and accessories at excellent prices.
+        <br/><b><i><a href="Promotion.html">View All Promotions</a></i></b></h3>
       </div>
       <div class="row text-center justify-content-center">
 
@@ -103,8 +78,9 @@
     </div>
     <div class="row text-center justify-content-center cl-dar">
       <h3>
-        Perfect for watching netflix or playing games with perfect sound quality 
-        so that you do not miss the wonderful <br>experience when you are about to sleep on Friday after a long week!<br />
+        Perfect for watching netflix or playing games with perfect sound quality
+        so that you do not miss the wonderful <br>experience when you are about to sleep on Friday after a long
+        week!<br />
       </h3>
     </div>
     <div class="row text-center justify-content-center">
@@ -284,12 +260,44 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.min.css" />
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/img/bootstrap-formhelpers-currencies.flags.png" />
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script>
+    // API url
+    const baseUrl = "http://localhost:3000";
+    // hardcoded because we have not added login yet.
+    // const loggedInUserID = 1;
+    const token = localStorage.getItem("token");
+    const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+    console.log(token, loggedInUserID)
+
+    if (token === null || isNaN(loggedInUserID)) {
+      console.log("not logged in");
+      loginhtml = `<a class='btn btn-dark' href="/Login.html">Login</a>`;
+      $("#loginout").append(loginhtml);
+
+    } else {
+      console.log("logged in");
+      loginhtml2 = `<button class='btn btn-danger'id='logout'>Logout</button>`;
+      $("#loginout").append(loginhtml2);
+
+
+      $("#logout").click(e => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("loggedInUserID");
+        window.location.href = "/";
+      });
+    }
+
+  </script>
 
 </body>
 

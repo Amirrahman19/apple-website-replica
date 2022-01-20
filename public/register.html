@@ -24,33 +24,35 @@
         <form>
           <div class="form-group">
             <div class="form-row">
-              <!-- <div class="col-md-6">
-                <label for="exampleInputName">First name</label>
-                <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Enter first name">
+              <div class="col-md-6">
+                <label for="exampleInputName">Username</label>
+                <input class="form-control" id="username" type="text" aria-describedby="nameHelp"
+                  placeholder="Enter username">
               </div>
               <div class="col-md-6">
-                <label for="exampleInputLastName">Last name</label>
-                <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Enter last name">
-              </div> -->
+                <label for="exampleInputLastName">Contact</label>
+                <input class="form-control" id="contact" type="text" aria-describedby="nameHelp" placeholder="Contact">
+              </div>
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1" id="username">Email address</label>
-            <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <label for="exampleInputEmail1" id="emailaddress">Email address</label>
+            <input class="form-control" id="email" type="email" aria-describedby="emailHelp"
+              placeholder="Enter email">
           </div>
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
-                <label for="exampleInputPassword1" id="password">Password</label>
-                <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                <label for="exampleInputPassword1" id="pws">Password</label>
+                <input class="form-control" id="pwd" type="password" placeholder="Password">
               </div>
               <div class="col-md-6">
                 <label for="exampleConfirmPassword">Confirm password</label>
-                <input class="form-control" id="exampleConfirmPassword" type="password" placeholder="Confirm password">
+                <input class="form-control" id="pwd" type="password" placeholder="Confirm password">
               </div>
             </div>
           </div>
-          <a class="btn btn-primary btn-block">Register</a>
+          <a class="btn btn-primary btn-block" id='register-form'>Register</a>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="Login.html">Login Page</a>
@@ -60,47 +62,48 @@
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        const baseUrl = "http://localhost:3000";
-        $("#register-form").submit((event) => {
-            // prevent page reload
-            event.preventDefault();
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const baseUrl = "http://localhost:8081";
+    $(document).ready(function () {
+      $("#register-form").click(function () {
+        // prevent page reload
+        event.preventDefault();
 
-            const username = $("#username").val();
-            // const fullName = $("#full_name").val();
-            // const bio = $("#bio").val();
-            // const dob = $("#dob").val();
-            const password = $("#password").val();
-            const requestBody = {
-                username: username,
-                // full_name: fullName,
-                // bio: bio,
-                // date_of_birth: dob,
-                password: password
-            };
+        const username = $("#username").val();
+        const email = $("#email").val();
+        const contact = $("#contact").val();
+        const password = $("#pwd").val();
+        const requestBody = {
+          username: username,
+          email: email,
+          contact: contact,
+          password: password
+        };
 
-            axios.post(`${baseUrl}/users/`, requestBody)
-                .then((response) => {
-                    window.location.href = "/login";
-                })
-                .catch((error) => {
-                    console.log(error);
-                    if (error.response.status === 400) {
-                        alert("Validation failed");
-                    } else {
-                        alert("Something unexpected went wrong.");
-                    }
-                });
-        });
-    </script>
+        axios.post(`${baseUrl}/users/`, requestBody)
+          .then((response) => {
+            alert("User registered successfully");
+            window.location.href = "Login.html";
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.response.status === 400) {
+              alert("Validation failed");
+            } else {
+              alert("Something unexpected went wrong.");
+            }
+          });
+      });
+    });
+  </script>
   <!-- Bootstrap core JavaScript-->
   <script src="admin/vendor/jquery/jquery.min.js"></script>
   <script src="admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
