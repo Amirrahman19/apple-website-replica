@@ -35,11 +35,13 @@
       const productid = $("#productid").val();
       const rating = $(".radio:checked").val();
       const review = $("#review").val();
+      const product = $("#product").val();
       const requestBody = {
         userid: userid,
         productid: productid,
         rating: rating,
-        review: review
+        review: review,
+        product: product
       };
       if (token === null || isNaN(loggedInUserID)) {
         loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
