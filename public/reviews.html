@@ -13,61 +13,99 @@
   <link href="css/modern-business.css" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
     integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-
+  <!--Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+
+<script>
+  // API url
+  const baseUrl = "http://localhost:8081";
+  const token = localStorage.getItem("token");
+  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+  $(document).ready(function () {
+    $("#post-review").click(function () {
+      const userid = $("#username").val();
+      const productid = $("#productid").val();
+      const rating = $(".radio:checked").val();
+      const review = $("#review").val();
+      const requestBody = {
+        userid: userid,
+        productid: productid,
+        rating: rating,
+        review: review
+      };
+      if (token === null || isNaN(loggedInUserID)) {
+        loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
+        $("#loginout").append(loginhtml);
+      } else {
+        axios.post(`${baseUrl}/product/${productid}/review/`, requestBody, { headers: { "Authorization": "Bearer " + token } })
+          .then((response) => {
+            // reset form value.
+            $("#create-post-form-body").val("");
+
+            // fetch the post with the returned postID
+            axios.get(`${baseUrl}/product/:id/reviews${response.data.postID}`)
+              .then((response) => {
+                const post = response.data;
+                const postHtml = `
+                    <div class="card" style="margin-top: 2rem;">
+                        <div class="card-body">
+                            <p class="card-text">${post.text_body}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            ${post.created_at}
+                        </div>
+                    </div>
+                    `;
+                $("#posts").prepend(postHtml);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+      };
+
+      $("#logout").click(e => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("loggedInUserID");
+        window.location.href = "/login/";
+      });
+    });
+  });
+</script>
 
 <body>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand" href="index.html">SP IT!</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
       <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
         <ul class="navbar-nav">
-
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="customization.html">Reviews</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="Promotion.html">Promotions</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href=#">Category</a>
-          </li> -->
 
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Category
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="Products.html" id="iPhone">iPhone</a>
-              <a class="dropdown-item" href="Products.html" id="Mac">Macbook Pro</a>
-              <a class="dropdown-item" href="Products.html" id="iPad">iPad</a>
-            </div>
-          </div>
+          <li class="nav-item">
+            <a class="nav-link" href="Category.html">Category</a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="Products.html">Products</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Profile.html">Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="Login.html">Login</a>
+          <li class="nav-item" id="loginout">
           </li>
-          <button class="btn btn-danger" id="logout" href="Login.html">Logout</button>
-          <form class="search-container">
-            <input type="text" id="search-bar" placeholder="Search">
-            <!-- <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a> -->
-          </form>
-
-
 
         </ul>
       </div>
+
+      <form class="d-flex">
+        <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
   </nav>
   <header>
@@ -84,22 +122,15 @@
 
           <form>
             <div class="form-group row">
-              <label for="fname" class="col-sm-3 col-form-label">Full name:</label>
+              <label for="fname" class="col-sm-3 col-form-label">Username:</label>
               <div class="col-sm-9">
-                <input type="text" class="feedbackInfo" id="fname" name="fname" placeholder="Full name..." required>
+                <input type="text" class="feedbackInfo" id="username" placeholder="Username" required>
               </div>
             </div>
             <div class="form-group row">
-              <label for="email" class="col-sm-3 col-form-label">E-mail:</label>
+              <label for="email" class="col-sm-3 col-form-label">ProductID:</label>
               <div class="col-sm-9">
-                <input type="email" class="feedbackInfo" id="email" name="email" placeholder="E-mail address..."
-                  required>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="phone" class="col-sm-3 col-form-label">Phone:</label>
-              <div class="col-sm-9">
-                <input type="tel" class="feedbackInfo" id="phone" name="phone" placeholder="Phone number..." required>
+                <input type="email" class="feedbackInfo" id="productid" placeholder="Productid" required>
               </div>
             </div>
 
@@ -108,53 +139,32 @@
             <br />
             <label>Rate this website!
             </label>
-            <fieldset class="selections">
+            <fieldset class="selections" id='rating'>
               <label>Needs Work</label>
-              <input type="radio" name="pageRating" value="0">
-              <input type="radio" name="pageRating" value="1">
-              <input type="radio" name="pageRating" value="2">
-              <input type="radio" name="pageRating" value="3">
-              <input type="radio" name="pageRating" value="4">
-              <input type="radio" name="pageRating" value="5">
-              <input type="radio" name="pageRating" value="6">
-              <input type="radio" name="pageRating" value="7">
-              <input type="radio" name="pageRating" value="8">
-              <input type="radio" name="pageRating" value="9">
-              <input type="radio" name="pageRating" value="10">
+              <input type="radio" class="radio" name="pageRating" value="0">
+              <input type="radio" class="radio" name="pageRating" value="1">
+              <input type="radio" class="radio" name="pageRating" value="2">
+              <input type="radio" class="radio" name="pageRating" value="3">
+              <input type="radio" class="radio" name="pageRating" value="4">
+              <input type="radio" class="radio" name="pageRating" value="5">
+              <input type="radio" class="radio" name="pageRating" value="6">
+              <input type="radio" class="radio" name="pageRating" value="7">
+              <input type="radio" class="radio" name="pageRating" value="8">
+              <input type="radio" class="radio" name="pageRating" value="9">
+              <input type="radio" class="radio" name="pageRating" value="10">
               <label>Great</label>
             </fieldset>
-            <!-- Interest in site -->
-            <br>
-            <label for="comment">
-              Visiting again?
-            </label>
-            <br />
-            <br />
-            <br />
-            <div id="newRow">
-              Very unlikely <input type="range" min="0" max="10" value="5" step="1" name="q4" /> Very likely
-            </div>
-            <br />
-            <br />
-            <label for="insta">
-              Your Instagram username:
 
-            </label>
-            <input id="insta" class="feedbackInfo" type="text" placeholder="Username" required><br>
-            <br />
             <!--Additional comments  -->
             <label for="comment">
-              Additional Comments:
+              Review:
 
             </label>
             <br>
-            <textarea id="comment" class="feedbackInfo comment" rows="5" maxlength="500"
-              placeholder="Additional comments"></textarea>
+            <textarea class="feedbackInfo comment" rows="5" maxlength="500" placeholder="Additional comments"
+              id="review"></textarea>
             <div class="container">
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#submit"
-                onclick="alertMsg()">
-                Submit
-              </button>
+              <a class="btn btn-primary btn-block" id="post-review" href="#">Submit</a>
             </div>
 
 
@@ -174,140 +184,140 @@
   </header>
 
   <body>
-    <section id="testimonials">
-      <!--heading--->
+    <!-- <section id="testimonials">
+      heading
       <div class="testimonial-heading">
         <span>Comments</span>
         <h4>Clients Says</h4>
       </div>
-      <!--testimonials-box-container------>
+      testimonials-box-container
       <div class="testimonial-box-container">
-        <!--BOX-1-------------->
+      
         <div class="testimonial-box">
-          <!--top------------------------->
+         
           <div class="box-top">
-            <!--profile----->
+           
             <div class="profile">
-              <!--img---->
+             
               <div class="profile-img">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
               </div>
-              <!--name-and-username-->
+        
               <div class="name-user">
                 <strong>Liam mendes</strong>
                 <span>@liammendes</span>
               </div>
             </div>
-            <!--reviews------>
+           
             <div class="reviews">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
-              <!--Empty star-->
+          
             </div>
           </div>
-          <!--Comments---------------------------------------->
+          
           <div class="client-comment">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
               temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
               incidunt blanditiis sed atque cumque.</p>
           </div>
         </div>
-        <!--BOX-2-------------->
+        
         <div class="testimonial-box">
-          <!--top------------------------->
+        
           <div class="box-top">
-            <!--profile----->
+        
             <div class="profile">
-              <!--img---->
+             
               <div class="profile-img">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
               </div>
-              <!--name-and-username-->
+              >
               <div class="name-user">
                 <strong>Noah Wood</strong>
                 <span>@noahwood</span>
               </div>
             </div>
-            <!--reviews------>
+         
             <div class="reviews">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
-              <!--Empty star-->
+         
             </div>
           </div>
-          <!--Comments---------------------------------------->
+         
           <div class="client-comment">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
               temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
               incidunt blanditiis sed atque cumque.</p>
           </div>
         </div>
-        <!--BOX-3-------------->
+      
         <div class="testimonial-box">
-          <!--top------------------------->
+        
           <div class="box-top">
-            <!--profile----->
+          
             <div class="profile">
-              <!--img---->
+          
               <div class="profile-img">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
               </div>
-              <!--name-and-username-->
+             
               <div class="name-user">
                 <strong>Oliver Queen</strong>
                 <span>@oliverqueen</span>
               </div>
             </div>
-            <!--reviews------>
+         
             <div class="reviews">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
-              <!--Empty star-->
+            
             </div>
           </div>
-          <!--Comments---------------------------------------->
+         
           <div class="client-comment">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
               temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
               incidunt blanditiis sed atque cumque.</p>
           </div>
         </div>
-        <!--BOX-4-------------->
+       
         <div class="testimonial-box">
-          <!--top------------------------->
+        
           <div class="box-top">
-            <!--profile----->
+           
             <div class="profile">
-              <!--img---->
+           
               <div class="profile-img">
                 <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
               </div>
-              <!--name-and-username-->
+          
               <div class="name-user">
                 <strong>Barry Allen</strong>
                 <span>@barryallen</span>
               </div>
             </div>
-            <!--reviews------>
+           
             <div class="reviews">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
-              <!--Empty star-->
+            
             </div>
           </div>
-          <!--Comments---------------------------------------->
+    
           <div class="client-comment">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
               temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
@@ -315,7 +325,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
   </body>
   <!-- <div class="container mt-5">
         <h2>Request Form</h2>
@@ -453,15 +463,7 @@
       </div>
     </div>
   </footer>
-  <!-- Bootstrap core JavaScript -->
-  <!-- <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.min.css" />
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/img/bootstrap-formhelpers-currencies.flags.png" /> -->
+
 
 </body>
 
