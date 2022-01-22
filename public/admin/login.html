@@ -28,7 +28,7 @@
         var data = "{\"email\":\"" + id + "\", \"password\":\"" + pwd + "\"}";
         console.log(data);
         $.ajax({
-          url: 'http://localhost:8081/user/login',
+          url: 'http://localhost:8081/login/',
           type: 'POST',
           data: data,
           contentType: "application/json; charset=utf-8",
