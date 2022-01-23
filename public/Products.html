@@ -47,7 +47,7 @@
         loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
         $("#loginout").append(loginhtml);
       } else {
-        axios.post(`${baseUrl}/product/${productid}/review/`, requestBody, { headers: { "Authorization": "Bearer " + token } })
+        axios.post(`${baseUrl}/admin/product/new`, requestBody, { headers: { "Authorization": "Bearer " + token } })
           .then((response) => {
             // reset form value.
             $("#create-post-form-body").val("");
@@ -81,6 +81,18 @@
       });
     });
   });
+//for admins to add new products or categories
+  localstorage.setItem("type", user[o].type);
+  $('#username').append(user[o].username + '---' + localstorage.getItem("type"));
+  console.log(localstorage.getItem("type"));
+  var type = localstorage.getItem("type");
+  if (type == "admin") {
+    var adminonly= `
+    <a href='/addproduct/'><button type='button' class='btn btn-dark'>Add Product</button></a>
+    <a href='/addcategory/'><button type='button' class='btn btn-dark'>Add Category</button></a>
+    `;
+    $('#adminonly').append(adminonly);
+  }
 </script> -->
 <body>
 
@@ -446,51 +458,7 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <!-- <script>
-    // API url
-    // const baseUrl = "http://localhost:3000";
-    // const token = localStorage.getItem("token");
-    // const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
 
-    // if (token === null || isNaN(loggedInUserID)) {
-    //   loginhtml = `<a class='btn btn-dark' href="/Login.html">Login</a>`;
-    //   $("#loginout").append(loginhtml);
-    // } 
-    //else {
-    //   axios.post(`${baseUrl}/product/`, requestBody, { headers: { "Authorization": "Bearer " + token } })
-    //   .then((response) => {
-    //     // reset form value.
-    //     $("#create-post-form-body").val("");
-
-    //     // fetch the post with the returned postID
-    //     axios.get(`${baseUrl}/product/:id/${response.data.postID}`)
-    //       .then((response) => {
-    //         const post = response.data;
-    //         const postHtml = `
-    //                 <div class="card" style="margin-top: 2rem;">
-    //                     <div class="card-body">
-    //                         <p class="card-text">${post.text_body}</p>
-    //                     </div>
-    //                     <div class="card-footer text-muted">
-    //                         ${post.created_at}
-    //                     </div>
-    //                 </div>
-    //                 `;
-    //         $("#posts").prepend(postHtml);
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   });
-    // };
-
-    // $("#logout").click(e => {
-    //   localStorage.removeItem("token");
-    //   localStorage.removeItem("loggedInUserID");
-    //   window.location.href = "/login/";
-    // });
-
-  </script> -->
 </body>
 
 </html>
