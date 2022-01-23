@@ -81,18 +81,7 @@
       });
     });
   });
-//for admins to add new products or categories
-  localstorage.setItem("type", user[o].type);
-  $('#username').append(user[o].username + '---' + localstorage.getItem("type"));
-  console.log(localstorage.getItem("type"));
-  var type = localstorage.getItem("type");
-  if (type == "admin") {
-    var adminonly= `
-    <a href='/addproduct/'><button type='button' class='btn btn-dark'>Add Product</button></a>
-    <a href='/addcategory/'><button type='button' class='btn btn-dark'>Add Category</button></a>
-    `;
-    $('#adminonly').append(adminonly);
-  }
+
 </script> -->
 <body>
 

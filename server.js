@@ -29,6 +29,10 @@ app.get("/", (req, res) => {
   res.sendFile("/public/index.html", { root: __dirname });
 });
 
+// app.get("/admin/users/", (req, res) => {
+//   res.sendFile("/public/admin/index.html", { root: __dirname });
+// });
+
 app.use(serveStatic(__dirname + "/public"));
 
 
