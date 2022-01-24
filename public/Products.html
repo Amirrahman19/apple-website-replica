@@ -43,7 +43,7 @@ Bootstrap core JavaScript-->
       const products = response.data;
       console.log("hi")
       for (let i = 0; i < products.length; i++) {
-        if (data[i]==null || data[i]=="") {
+        if (products[i]==null || products[i]=="") {
           image = "https://www.w3schools.com/howto/img_avatar.png";
         } else {
           image = `<img src="${products[i].image}" alt="${products[i].name}" class="img-fluid">`;
@@ -67,7 +67,7 @@ Bootstrap core JavaScript-->
                <a href="productinfo.html" class="cl-dar ">More info</a>
              </div>
            </div>
-           <a href="#"><img class="card-img-top" src="{products[i].image}" alt=""></a>
+           <a href="#"><img class="card-img-top" src="${products[i].image}" alt=""></a>
          </div>
        </div>
        
