@@ -7,10 +7,47 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="public/css/modern-business.css">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  // API url
+  const baseUrl = "http://localhost:8081";
+  const token = localStorage.getItem("token");
+  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+  
+            axios.get(`${baseUrl}/retrieve/category`)
+                .then((response) => {
+                    const categories = response.data;
+                    categories.forEach((categories) => {
+                        const productsHtml = `
+                    <div class="card" style="margin-top: 2rem;">
+                        <div class="card-body">
+                            <p class="card-text">${categories.text_body}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            ${categories.created_at}
+                        </div>
+                    </div>
+                    `;
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+      $("#logout").click(e => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("loggedInUserID");
+        window.location.href = "/login/";
+      });
+
+</script> 
 </head>
 <body>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-      
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">SP IT!</a>
           <div class="collapse navbar-collapse justify-content-center" id="navbarResponsive">
@@ -45,6 +82,17 @@
           </div> 
         </div>
       </nav>
+      <div class="py-5" style="margin-top:10px;background-color: white;color: white;padding-bottom: 0rem !important;">
+        <div class="row justify-content-center">
+          <ul class="list-inline">
+            <li class="list-inline-item text-center">
+              <!-- <label class="fas fa-mobile fa-2x"></label>
+              <p><a href="#products">View all products</a> </p>  -->
+            </li>
+          </ul>
+        </div>
+      </div>
+  
       <div class="container my-5">
           <div class="row d-flex justify-content-center">
               <div class="col-12">
@@ -72,7 +120,7 @@
                                     <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/gpt-3-tailwind-css-code-generator.jpg" class="card-img-top" alt="...">
                                     <div class="card-body">
                                       <h5 class="card-title">We built an OpenAI powered Tailwind CSS code generator using GPT-3</h5>
-                                      <p class="card-text">A couple of days ago we got access to the OpenAI’s Beta API platform and I had the occasion to play around with it...</p>
+                                      <p class="card-text">A couple of days ago we got access to the OpenAI's Beta API platform and I had the occasion to play around with it...</p>
                                       <a href="#" class="btn btn-primary">Read more</a>
                                     </div>
                                 </div>
@@ -92,51 +140,7 @@
                                     <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/angular-10/angular-10-officially-released-dropping-ie-9-10.jpg" class="card-img-top" alt="...">
                                     <div class="card-body">
                                       <h5 class="card-title">Angular 10 officially released deprecating support for IE 9 and 10</h5>
-                                      <p class="card-text">If you've been using Angular for your web projects I’m glad to let you know that following this major update to version...</p>
-                                      <a href="#" class="btn btn-primary">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-12 col-md-6 col-xl-3 mb-4">
-                                <div class="card mr-3">
-                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/bootstrap-themes-summer-sale.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                      <h5 class="card-title">35% discount for premium Bootstrap Themes, Templates, UI Kits</h5>
-                                      <p class="card-text">We're getting nearer to the end of summer and because we know that this period can make a serious dent in your pocket..</p>
-                                      <a href="#" class="btn btn-primary">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3 mb-4">
-                                <div class="card mr-3">
-                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/gpt-3-tailwind-css-code-generator.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                      <h5 class="card-title">We built an OpenAI powered Tailwind CSS code generator using GPT-3</h5>
-                                      <p class="card-text">A couple of days ago we got access to the OpenAI’s Beta API platform and I had the occasion to play around with it...</p>
-                                      <a href="#" class="btn btn-primary">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3 mb-4">
-                                <div class="card mr-3">
-                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/bootstrap-5-tutorial/bootstrap-5-tutorial.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                      <h5 class="card-title">Bootstrap 5 tutorial: learn how to get started without jQuery</h5>
-                                      <p class="card-text">We're getting nearer to the end of summer and because we know that this period can make a serious dent in your pocket..</p>
-                                      <a href="#" class="btn btn-primary">Read more</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3 mb-4">
-                                <div class="card mr-3">
-                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/angular-10/angular-10-officially-released-dropping-ie-9-10.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                      <h5 class="card-title">Angular 10 officially released deprecating support for IE 9 and 10</h5>
-                                      <p class="card-text">If you've been using Angular for your web projects I’m glad to let you know that following this major update to version...</p>
+                                      <p class="card-text">If you've been using Angular for your web projects I'm glad to let you know that following this major update to version...</p>
                                       <a href="#" class="btn btn-primary">Read more</a>
                                     </div>
                                 </div>
@@ -180,7 +184,51 @@
                                     <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/angular-10/angular-10-officially-released-dropping-ie-9-10.jpg" class="card-img-top" alt="...">
                                     <div class="card-body">
                                       <h5 class="card-title">Angular 10 officially released deprecating support for IE 9 and 10</h5>
-                                      <p class="card-text">If you've been using Angular for your web projects I’m glad to let you know that following this major update to version...</p>
+                                      <p class="card-text">If you've been using Angular for your web projects I'm glad to let you know that following this major update to version...</p>
+                                      <a href="#" class="btn btn-primary">Read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-xl-3 mb-4">
+                                <div class="card mr-3">
+                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/bootstrap-themes-summer-sale.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">35% discount for premium Bootstrap Themes, Templates, UI Kits</h5>
+                                      <p class="card-text">We're getting nearer to the end of summer and because we know that this period can make a serious dent in your pocket..</p>
+                                      <a href="#" class="btn btn-primary">Read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3 mb-4">
+                                <div class="card mr-3">
+                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/gpt-3-tailwind-css-code-generator.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">We built an OpenAI powered Tailwind CSS code generator using GPT-3</h5>
+                                      <p class="card-text">A couple of days ago we got access to the OpenAI's Beta API platform and I had the occasion to play around with it...</p>
+                                      <a href="#" class="btn btn-primary">Read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3 mb-4">
+                                <div class="card mr-3">
+                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/bootstrap-5-tutorial/bootstrap-5-tutorial.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Bootstrap 5 tutorial: learn how to get started without jQuery</h5>
+                                      <p class="card-text">We're getting nearer to the end of summer and because we know that this period can make a serious dent in your pocket..</p>
+                                      <a href="#" class="btn btn-primary">Read more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3 mb-4">
+                                <div class="card mr-3">
+                                    <img src="https://themesberg.s3.us-east-2.amazonaws.com/public/posts/angular-10/angular-10-officially-released-dropping-ie-9-10.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Angular 10 officially released deprecating support for IE 9 and 10</h5>
+                                      <p class="card-text">If you've been using Angular for your web projects I'm glad to let you know that following this major update to version...</p>
                                       <a href="#" class="btn btn-primary">Read more</a>
                                     </div>
                                 </div>
