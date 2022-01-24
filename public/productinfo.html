@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>SP IT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../assets/icons/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="../assets/css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/main.css">
-  </head>
+    <link rel="stylesheet" href="./assets/icons/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="./assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  // API url
+  const baseUrl = "http://localhost:8081";
+  const token = localStorage.getItem("token");
+  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+  
+            axios.get(`${baseUrl}/retrieve/product/:id/`)
+                .then((response) => {
+                    const products = response.data;
+                    products.forEach((products) => {
+                        const productsHtml = `
+                    <div class="card" style="margin-top: 2rem;">
+                        <div class="card-body">
+                            <p class="card-text">${products.text_body}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            ${products.created_at}
+                        </div>
+                    </div>
+                    `;
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+      $("#logout").click(e => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("loggedInUserID");
+        window.location.href = "/login/";
+      });
+
+</script> 
+</head>
   <body>
     <header class="site_header">
       <div class="container-fluid px-0">
@@ -149,3 +187,5 @@
     </div>
   </div>
 </section>
+</body>
+</html>

@@ -276,47 +276,7 @@
       </div>
     </div>
   </footer>
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-  <script>
-    // API url
-    const baseUrl = "http://localhost:3000";
-    // hardcoded because we have not added login yet.
-    // const loggedInUserID = 1;
-    const token = localStorage.getItem("token");
-    const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
-    console.log(token, loggedInUserID)
-
-    if (token === null || isNaN(loggedInUserID)) {
-      console.log("not logged in");
-      loginhtml = `<a class='btn btn-dark' href="/Login.html">Login</a>`;
-      $("#loginout").append(loginhtml);
-
-    } else {
-      console.log("logged in");
-      loginhtml2 = `<button class='btn btn-danger'id='logout'>Logout</button>`;
-      $("#loginout").append(loginhtml2);
-
-
-      $("#logout").click(e => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("loggedInUserID");
-        window.location.href = "/";
-      });
-    }
-
-  </script>
+ 
 
 </body>
 

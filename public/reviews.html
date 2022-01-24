@@ -46,7 +46,7 @@
             $("#create-post-form-body").val("");
 
             // fetch the post with the returned postID
-            axios.get(`${baseUrl}/product/:id/reviews${response.data.postID}`)
+            axios.get(`${baseUrl}/product/${productid}/reviews${response.data.postID}`)
               .then((response) => {
                 const post = response.data;
                 const postHtml = `

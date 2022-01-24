@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SP_IT</title>
+  <title>SP IT</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -18,71 +18,45 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
     integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
 </head>
-  <!-- Bootstrap core JavaScript
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-
 <script>
   // API url
   const baseUrl = "http://localhost:8081";
   const token = localStorage.getItem("token");
   const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
-  $(document).ready(function () {
-    $("#post-review").click(function () {
-      const userid = $("#username").val();
-      const productid = $("#productid").val();
-      const rating = $(".radio:checked").val();
-      const review = $("#review").val();
-      const product = $("#product").val();
-      const requestBody = {
-        userid: userid,
-        productid: productid,
-        rating: rating,
-        review: review,
-        product: product
-      };
-      if (token === null || isNaN(loggedInUserID)) {
-        loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
-        $("#loginout").append(loginhtml);
-      } else {
-        axios.post(`${baseUrl}/admin/product/new`, requestBody, { headers: { "Authorization": "Bearer " + token } })
-          .then((response) => {
-            // reset form value.
-            $("#create-post-form-body").val("");
-
-            // fetch the post with the returned postID
-            axios.get(`${baseUrl}/product/:id/reviews${response.data.postID}`)
-              .then((response) => {
-                const post = response.data;
-                const postHtml = `
+  
+            axios.get(`${baseUrl}/retrieve/product/`)
+                .then((response) => {
+                    const products = response.data;
+                    products.forEach((products) => {
+                        const productsHtml = `
                     <div class="card" style="margin-top: 2rem;">
                         <div class="card-body">
-                            <p class="card-text">${post.text_body}</p>
+                            <p class="card-text">${products.text_body}</p>
                         </div>
                         <div class="card-footer text-muted">
-                            ${post.created_at}
+                            ${products.created_at}
                         </div>
                     </div>
                     `;
-                $("#posts").prepend(postHtml);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          });
-      };
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
 
       $("#logout").click(e => {
         localStorage.removeItem("token");
         localStorage.removeItem("loggedInUserID");
         window.location.href = "/login/";
       });
-    });
-  });
 
-</script> -->
+</script> 
+
 <body>
 
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -110,15 +84,15 @@
           </li>
           <li class="nav-item" id="loginout">
           </li>
-         
+
         </ul>
       </div>
-    
-        <form class="d-flex">
-          <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div> 
+
+      <form class="d-flex">
+        <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
   </nav>
   <header>
 
@@ -128,7 +102,7 @@
           <li class="list-inline-item text-center">
 
             <!-- <label class="fas fa-mobile fa-2x"></label>
-            <p><a href="#" style="color: white;font-size: 11px;">Snap Chat</a> </p> -->
+            <p><a href="#products">View all products</a> </p>  -->
 
 
           </li>
@@ -147,7 +121,7 @@
         <a href="reviews.html" class="cl-dar ">Reviews</a>
       </div>
       <div class="col text-left">
-        <a href="productinfo.html" class="cl-dar ">More info</a> 
+        <a href="productinfo.html" class="cl-dar ">More info</a>
       </div>
     </div>
     <div class="row justify-content-center pt-5">
@@ -172,7 +146,7 @@
         <a href="reviews.html" class="cl-dar ">Reviews</a>
       </div>
       <div class="col text-left">
-        <a href="productinfo.html" class="cl-dar ">More info</a> 
+        <a href="productinfo.html" class="cl-dar ">More info</a>
       </div>
     </div>
     <dic class="row justify-content-center pt-5">
@@ -196,7 +170,7 @@
               <a href="reviews.html" class="cl-dar ">Reviews</a>
             </div>
             <div class="col text-left">
-              <a href="productinfo.html" class="cl-dar ">More info</a> 
+              <a href="productinfo.html" class="cl-dar ">More info</a>
             </div>
           </div>
           <a href="#"><img class="card-img-top" src="/images/pencil_large.jpg" alt=""></a>
@@ -204,7 +178,7 @@
       </div>
       <div class="col-lg-6 portfolio-item">
         <div class="card h-100">
-          
+
           <div class="card-body">
             <h2 class="card-title text-center">
               Smart keyboard for<br>Ipad pro
@@ -214,16 +188,16 @@
                 <a href="reviews.html" class="cl-dar ">Reviews</a>
               </div>
               <div class="col text-left">
-                <a href="productinfo.html" class="cl-dar ">More info</a> 
+                <a href="productinfo.html" class="cl-dar ">More info</a>
               </div>
               <a href="#"><img src="/images/smart_keyboard_large.jpg" class="img-fluid"></a>
             </div>
           </div>
-          
+
         </div>
       </div>
-      
-      
+
+
       <div class="col-lg-12 portfolio-item">
         <div class="bg-white">
           <div class="row" style="display: flex;align-items: center;">
@@ -259,7 +233,8 @@
         <div class="bg-white">
           <div class="row" style="display: flex;align-items: center;">
             <div class="col-lg-6 bg-white text-center mt-5">
-              <h2 class="cl-dar">Buy a Lenovo Legion 5I! An amazing gaming laptop that is portable and has high performance as well</br></h2>
+              <h2 class="cl-dar">Buy a Lenovo Legion 5I! An amazing gaming laptop that is portable and has high
+                performance as well</br></h2>
               <p class="cl-dar">And save more with education pricing. Only at SP IT!</p>
             </div>
             <div class="col-lg-6">
@@ -443,10 +418,6 @@
       </div>
     </div>
   </footer>
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </body>
 
