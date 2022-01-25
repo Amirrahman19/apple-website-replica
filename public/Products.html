@@ -25,8 +25,8 @@
   <script src="https:stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-</head>
-Bootstrap core JavaScript-->
+
+
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https:unpkg.com/axios/dist/axios.min.js"></script>
@@ -36,42 +36,40 @@ Bootstrap core JavaScript-->
   const baseUrl = "http://localhost:8081";
   const token = localStorage.getItem("token");
   const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
-    axios.get(`${baseUrl}/retrieve/product/`)
+  axios.get(`${baseUrl}/retrieve/product/`)
     .then((response) => {
       console.log(response);
       var productsHtml = "";
       const products = response.data;
       console.log("hi")
       for (let i = 0; i < products.length; i++) {
-        if (products[i]==null || products[i]=="") {
-          image = "https://www.w3schools.com/howto/img_avatar.png";
-        } else {
-          image = `<img src="${products[i].image}" alt="${products[i].name}" class="img-fluid">`;
-        }
-        productsHtml = `
-        <div class="w-screen pt-4" style="background-color: #e3e3e3;">
-     <div class="row">
-       <div class="col-lg-6 portfolio-item">
-         <div class="card h-100">
 
-           <div class="card-body">
-             <h2 class="card-title text-center">
-               ${products[i].name}
-             </h2>
-           </div>
-           <div class="row text-center justify-content-center">
-             <div class="col text-right">
-               <a href="reviews.html" class="cl-dar ">Reviews</a>
-             </div>
-             <div class="col text-left">
-               <a href="productinfo.html" class="cl-dar ">More info</a>
-             </div>
-           </div>
-           <a href="#"><img class="card-img-top" src="${products[i].image}" alt=""></a>
-         </div>
-       </div>
-       
-                    `;
+        if (products[i].product_image == null || products[i].product_image == "") {
+          image = "images/macbook_large.jpg";
+        } else {
+          image = baseUrl + "/upload/" + products[i].product_image;
+
+        }
+
+        console.log(image)
+
+        productsHtml = `
+        <div class="w-screen mt-4" style="margin-top: 0rem !important;">
+        <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
+          <h2><b> ${products[i].name}</b></h2>
+        </div>
+        <div class="row text-center justify-content-center">
+          <div class="col text-right">
+            <a href="reviews.html?id=${products[i].productid}" class="cl-dar ">Reviews</a>
+          </div>
+          <div class="col text-left">
+            <a href="productinfo.html?id=${products[i].productid}" class="cl-dar ">More info</a>
+          </div>
+        </div>
+        <div class="row justify-content-center pt-5">
+          <img src="${image}" class="img-fluid">
+        </div>
+      </div>`;
         $("#products").append(productsHtml);
       }
     });
@@ -141,25 +139,27 @@ Bootstrap core JavaScript-->
 
   </header>
 
+  <div id="products"></div>
   <!-- <div class="w-screen mt-4" style="margin-top: 0rem !important;">
-     <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
-       <h2><b>MacBook Pro</b></h2>
-     </div>
-     <div class="row text-center justify-content-center">
-       <div class="col text-right">
-         <a href="reviews.html" class="cl-dar ">Reviews</a>
-       </div>
-       <div class="col text-left">
-         <a href="productinfo.html" class="cl-dar ">More info</a>
-       </div>
-     </div>
-     <div class="row justify-content-center pt-5">
-       <img src="images/macbook_large.jpg" class="img-fluid">
-     </div>
+      <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
+        <h2><b>MacBook Pro</b></h2>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col text-right">
+          <a href="reviews.html" class="cl-dar ">Reviews</a>
+        </div>
+        <div class="col text-left">
+          <a href="productinfo.html" class="cl-dar ">More info</a>
+        </div>
+      </div>
+      <div class="row justify-content-center pt-5">
+        <img src="images/macbook_large.jpg" class="img-fluid">
+      </div>
+    </div>
 
+  </div>
 
-   </div>
-   <div class="w-screen mt-4" style="background-color: #e3e3e3;">
+ <div class="w-screen mt-4" style="background-color: #e3e3e3;">
      <br />
    </div>
    <div class="w-screen mt-4">
@@ -184,8 +184,8 @@ Bootstrap core JavaScript-->
 
 
 
-  <div class="w-screen pt-4" style="background-color: #e3e3e3;" id='products'>
-    <!--<div class="row">
+  <!--<div class="w-screen pt-4" style="background-color: #e3e3e3;" id='products'>
+    <div class="row">
        <div class="col-lg-6 portfolio-item">
          <div class="card h-100">
 
@@ -203,8 +203,8 @@ Bootstrap core JavaScript-->
              </div>
            </div>
            <a href="#"><img class="card-img-top" src="/images/pencil_large.jpg" alt=""></a>
-         </div> -->
-  </div>
+         </div> 
+  </div>-->
   <!-- <div class="col-lg-6 portfolio-item">
          <div class="card h-100">
 
