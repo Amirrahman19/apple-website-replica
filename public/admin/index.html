@@ -30,44 +30,105 @@
   const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
   $(document).ready(function () {
     $("#addProduct").click(function () {
-        const name = $("#name").val();
-        const description = $("#description").val();
-        const category = $("#category").val();
-        const brand = $("#brand").val();
-        const price = $("#price").val();
-        const requestBody = {
-          name: name,
-          description: description,
-          category: category,
-          brand: brand,
-          price: price
-        };
-        if (token === null || isNaN(loggedInUserID)) {
+      const name = $("#name").val();
+      const description = $("#description").val();
+      const category = $("#category").val();
+      const brand = $("#brand").val();
+      const price = $("#price").val();
+      const requestBody = {
+        name: name,
+        description: description,
+        category: category,
+        brand: brand,
+        price: price
+      };
+
+      if (token === null || isNaN(loggedInUserID)) {
         loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
         $("#loginout").append(loginhtml);
       } else {
         axios.post(`${baseUrl}/admin/product/new`, requestBody, { headers: { "Authorization": "Bearer " + token } })
           .then((response) => {
-            alert("Product created successfully");
-            window.location.href = "/admin/index.html";
-          })
-          .catch((error) => {
-            console.log(error);
-            if (error.response.status === 400) {
-              alert("Failed to add product");
-            } else {
-              alert("Something unexpected went wrong.");
-            }
+            // reset form value.
+            $("#create-post-form-body").val("");
+            var post = response.data;
+            console.log(post);
+            // fetch the post with the returned postID
+            axios.get(`${baseUrl}/admin/product/new${response.data.productid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
+              .then((response) => {
+                const post = response.data;
+                
+                const postHtml = `
+                    <div class="card" style="margin-top: 2rem;">
+                        <div class="card-body">
+                            <p class="card-text">${post.text_body}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            ${post.created_at}
+                        </div>
+                    </div>
+                    `;
+                $("#posts").prepend(postHtml);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           });
+      }
+    });
+  });
+
+  $(document).ready(function () {
+    $("#addCategory").click(function () {
+      const name = $("#name").val();
+      const description = $("#description").val();
+      
+      const requestBody = {
+        name: name,
+        description: description,
+        
       };
+
+      if (token === null || isNaN(loggedInUserID)) {
+        loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
+        $("#loginout").append(loginhtml);
+      } else {
+        axios.post(`${baseUrl}/admin/category/new`, requestBody, { headers: { "Authorization": "Bearer " + token } })
+          .then((response) => {
+            // reset form value.
+            $("#create-post-form-body").val("");
+            var post = response.data;
+            console.log(post);
+            // fetch the post with the returned postID
+            axios.get(`${baseUrl}/admin/category/new${response.data.categoryid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
+              .then((response) => {
+                const post = response.data;
+                
+                const postHtml = `
+                    <div class="card" style="margin-top: 2rem;">
+                        <div class="card-body">
+                            <p class="card-text">${post.text_body}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            ${post.created_at}
+                        </div>
+                    </div>
+                    `;
+                $("#posts").prepend(postHtml);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
+      }
     });
   });
 
   $("#logout").click(e => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("loggedInUserID");
-        window.location.href = "/login/";
-      });
+    localStorage.removeItem("token");
+    localStorage.removeItem("loggedInUserID");
+    window.location.href = "/login/";
+  });
 
 </script>
 
@@ -149,215 +210,217 @@
           </span>
         </div>
 
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--Product Add Model-->
-    <div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Add product</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" action="#">
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="productName">Name:</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="name" placeholder="Enter Product Name">
-                </div>
+        <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fa fa-angle-up"></i>
+        </a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"></span>
+                </button>
               </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="desc">Description:</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
-                    id="description"></textarea>
-
-                </div>
+              <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
               </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="desc">Category</label>:</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
-                    id="category"></textarea>
-
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="desc">Brand:</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
-                    id="brand"></textarea>
-
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="price">Price:</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" placeholder="Enter Product price" id="price">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="button" id="addProduct" class="btn btn-success">Submit</button>
-                  <button type="reset" class="btn btn-danger">Reset</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="modal fade" id="addcategory" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="productAddModalLabel">Add category</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" action="#">
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="productName">Category:</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="productName" placeholder="Enter Product Name">
-                </div>
+        <!--Product Add Model-->
+        <div class="modal fade" id="productAddModal" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add product</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"></span>
+                </button>
               </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="desc">Description:</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"></textarea>
+              <div class="modal-body">
+                <form class="form-horizontal" action="#">
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="productName">Name:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="name" placeholder="Enter Product Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="desc">Description:</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
+                        id="description"></textarea>
 
-                </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="desc">Category:</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" placeholder="Enter Product category" id="category">
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="desc">Brand:</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
+                        id="brand"></textarea>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="price">Price:</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" placeholder="Enter Product price" id="price">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="button" id="addProduct" class="btn btn-success">Submit</button>
+                      <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                  </div>
+                </form>
               </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-success">Submit</button>
-                  <button type="reset" class="btn btn-danger">Reset</button>
-                </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!--Product Edit Model-->
-    <div class="modal fade" id="productEditModal" tabindex="-1" role="dialog" aria-labelledby="productEditModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="productEditModalLabel">Edit product</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" action="#">
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="productName">Product:</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" value="Product one" id="productName"
-                    placeholder="Enter Product Name">
-                </div>
+        <div class="modal fade" id="addcategory" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productAddModalLabel">Add category</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"></span>
+                </button>
               </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="price">Price:</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" value="70$" id="price" placeholder="Enter Product price">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="desc">Description:</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"></textarea>
+              <div class="modal-body">
+                <form class="form-horizontal" action="#">
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="productName">Category:</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="5" cols="2"
+                        placeholder="Enter category name" id='name'></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="desc">Description:</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="5" cols="2"
+                        placeholder="Enter category description" id='description'></textarea>
 
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-success">Update</button>
-                  <button type="reset" class="btn btn-danger">Reset</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
 
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-success" id='addCategory'>Submit</button>
+                      <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- Delete Modal-->
-    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Delete product?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Are you sure you want to delete this product?</div>
-          <div class="modal-footer">
-            <button class="btn btn-success" type="button" data-dismiss="modal">Yes</button>
-            <a class="btn btn-primary" data-dismiss="modal" href="login.html">No</a>
+        <!--Product Edit Model-->
+        <div class="modal fade" id="productEditModal" tabindex="-1" role="dialog"
+          aria-labelledby="productEditModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productEditModalLabel">Edit product</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="form-horizontal" action="#">
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="productName">Product:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" value="Product one" id="productName"
+                        placeholder="Enter Product Name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="price">Price:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" value="70$" id="price" placeholder="Enter Product price">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="desc">Description:</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" rows="5" cols="2"
+                        placeholder="Enter product description"></textarea>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-success">Update</button>
+                      <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+              </div>
+            </div>
           </div>
         </div>
+        <!-- Delete Modal-->
+        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Delete product?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="modal-body">Are you sure you want to delete this product?</div>
+              <div class="modal-footer">
+                <button class="btn btn-success" type="button" data-dismiss="modal">Yes</button>
+                <a class="btn btn-primary" data-dismiss="modal" href="login.html">No</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Page level plugin JavaScript-->
+        <script src="vendor/datatables/jquery.dataTables.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin.min.js"></script>
+        <!-- Custom scripts for this page-->
+        <script src="js/sb-admin-datatables.min.js"></script>
       </div>
-    </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-  </div>
-          <!-- <div>
+      <!-- <div>
               <div class="container">
                 <nav class="nav">
                     <a class="nav-link" href="/">Home</a>
@@ -395,7 +458,7 @@
                     });
             </script>
             </div> -->
-<!--        <div class="card-body">
+      <!--        <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
@@ -646,10 +709,10 @@
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
       </div>
     </div>-->
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
+      <!-- /.container-fluid-->
+      <!-- /.content-wrapper-->
 
-    <!-- Scroll to Top Button-->
+      <!-- Scroll to Top Button-->
 </body>
 
 </html>

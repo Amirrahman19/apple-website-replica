@@ -14,14 +14,45 @@
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
-    
+    const baseUrl = "http://localhost:8081"; //server url
+
+    $(document).ready(function () {
+      $("#loginForm").submit(function (event) {
+        event.preventDefault();
+        console.log("login button clicked");
+        const email = $("#email").val();
+        const password = $("#pwd").val();
+        const requestBody = {
+          email: email,
+          password: password
+        };
+
+        axios.post(`${baseUrl}/admin/login`, requestBody) //verify against server
+          .then((response) => {
+            console.log('axios has run');  
+            const token = response.data.token;
+            const loggedInUserID = response.data.userInfo.userid;
+            localStorage.setItem("token", token);
+            localStorage.setItem("loggedInUserID", loggedInUserID);
+            window.location.href = "/admin/index.html";
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.response.status === 401) {
+              alert("Wrong login info");
+            } else {
+              alert("Something unexpected went wrong.");
+            }
+          });
+      });
+    });
   </script>
 </head>
 
@@ -30,7 +61,7 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Admin Login</div>
       <div class="card-body">
-        <form>
+        <form id = "loginForm">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input class="form-control" id="email" type="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -42,10 +73,10 @@
           <div class="form-group">
             <div class="form-check">
               <label class="form-check-label">
-                <input class="form-check-input" id="Login" type="checkbox"> Remember Password</label>
+                <input class="form-check-input" type="checkbox"> Remember Password</label>
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="index.html">Login</a>
+          <button class="btn btn-primary btn-block" >Login</button>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register.html">Register an Account</a>
