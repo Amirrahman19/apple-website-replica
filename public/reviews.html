@@ -76,8 +76,8 @@
     });
 </script>
 <script>
-    $(document).ready(function () {
-    $("#retrieve-review").click(function () {
+    // $(document).ready(function () {
+    // $("#retrieve-review").click(function () {
       axios.get(`${baseUrl}/retrieve/reviews`)
       .then((response) => {
         console.log(response);
@@ -104,11 +104,11 @@
            <p>${reviews[i].review}</p>
          </div>
        </div>>`;
-          $("reviews").append(reviewHtml);
+          $("#reviews").append(reviewHtml);
         }
       });
-    });
-    });
+    // });
+    // });
       
     
 </script>
@@ -209,7 +209,7 @@
      
     </div>
     <div class="testimonial-box" id='reviews'>
-      <button id='retrieve-review'>View reviews</button>
+      
     </div>
   </body>
 

@@ -53,26 +53,27 @@
             $("#create-post-form-body").val("");
             var post = response.data;
             console.log(post);
+            window.location.reload();
             // fetch the post with the returned postID
-            axios.get(`${baseUrl}/admin/product/new${response.data.productid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
-              .then((response) => {
-                const post = response.data;
+            // axios.get(`${baseUrl}/admin/product/new`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
+            //   .then((response) => {
+            //     const post = response.data;
                 
-                const postHtml = `
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-body">
-                            <p class="card-text">${post.text_body}</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            ${post.created_at}
-                        </div>
-                    </div>
-                    `;
-                $("#posts").prepend(postHtml);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+            //     const postHtml = `
+            //         <div class="card" style="margin-top: 2rem;">
+            //             <div class="card-body">
+            //                 <p class="card-text">${post.text_body}</p>
+            //             </div>
+            //             <div class="card-footer text-muted">
+            //                 ${post.created_at}
+            //             </div>
+            //         </div>
+            //         `;
+            //     $("#posts").prepend(postHtml);
+            //   })
+            //   .catch((error) => {
+            //     console.log(error);
+            //   });
           });
       }
     });
@@ -99,26 +100,27 @@
             $("#create-post-form-body").val("");
             var post = response.data;
             console.log(post);
+            window.location.reload();
             // fetch the post with the returned postID
-            axios.get(`${baseUrl}/admin/category/new${response.data.categoryid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
-              .then((response) => {
-                const post = response.data;
+            // axios.get(`${baseUrl}/admin/category/new${response.data.categoryid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
+            //   .then((response) => {
+            //     const post = response.data;
                 
-                const postHtml = `
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-body">
-                            <p class="card-text">${post.text_body}</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            ${post.created_at}
-                        </div>
-                    </div>
-                    `;
-                $("#posts").prepend(postHtml);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
+            //     const postHtml = `
+            //         <div class="card" style="margin-top: 2rem;">
+            //             <div class="card-body">
+            //                 <p class="card-text">${post.text_body}</p>
+            //             </div>
+            //             <div class="card-footer text-muted">
+            //                 ${post.created_at}
+            //             </div>
+            //         </div>
+            //         `;
+            //     $("#posts").prepend(postHtml);
+            //   })
+            //   .catch((error) => {
+            //     console.log(error);
+            //   });
           });
       }
     });
