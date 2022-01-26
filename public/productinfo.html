@@ -14,44 +14,10 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <!-- <script>
-  // API url
-  const baseUrl = "http://localhost:8081";
-  const token = localStorage.getItem("token");
-  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
-  
-            axios.get(`${baseUrl}/retrieve/product/:id/`)
-                .then((response) => {
-                    const products = response.data;
-                    products.forEach((products) => {
-                        const productsHtml = `
-                    <div class="card" style="margin-top: 2rem;">
-                        <div class="card-body">
-                            <p class="card-text">${products.text_body}</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            ${products.created_at}
-                        </div>
-                    </div>
-                    `;
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-
-      $("#logout").click(e => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("loggedInUserID");
-        window.location.href = "/login/";
-      });
-
-</script>  -->
-  <!-- <script>
     const baseUrl = "http://localhost:3001/";
     const token = localStorage.getItem("token");
     const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
-    const search = localStorage.getItem("search");
-    //Login/Logout Button         
+    const search = localStorage.getItem("search");      
   
     //Default Products page         
     let products;

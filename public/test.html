@@ -23,9 +23,6 @@
 </head>
 
 <body>
-  <div class="reviews">
-
-  </div>
 
   <script>
     baseUrl = "http://localhost:8081";
@@ -50,10 +47,10 @@
                             <div class="testimonial-icon">
                                 <i class="fa fa-quote-left"></i>
                             </div>
-                            <p class="description">${reviews.review}</p>
+                            <p class="description">${reviews[i].review}</p>
                         </div>
-                        <h3 class="title">${reviews.username}</h3>
-                        <span class="post">${reviews.productname}</span>
+                        <h3 class="title">${reviews[i].username}</h3>
+                        <span class="post">${reviews[i].productname}</span>
                     </div>`;
           $("#reviews").append(reviewHtml);
         }
