@@ -15,6 +15,10 @@
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css"> -->
   <title>Document</title>
 </head>
 
@@ -34,300 +38,30 @@
         for (let i = 0; i < reviews.length; i++) {
 
           reviewHtml = `
-          <div class="testimonial-box">
-         
-         <div class="box-top">
           
-           <div class="profile">
-             <div class="name-user">
-               <strong>${reviews.username}</strong>
-               <span>@${reviews.username}</span>
-             </div>
-           </div>
-          
-           <div class="reviews">
-             <i class="fas fa-star"></i>
-             <i class="fas fa-star"></i>
-             <i class="fas fa-star"></i>
-             <i class="fas fa-star"></i>
-             <i class="far fa-star"></i>
-         
-           </div>
-         </div>
-         
-         <div class="client-comment">
-           <p>${reviews.review}</p>
-         </div>
-       </div>>`;
-          $(".reviews").append(reviewHtml);
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="testimonial-slider" class="owl-carousel">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            <div class="testimonial-icon">
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <p class="description">${reviews.review}</p>
+                        </div>
+                        <h3 class="title">${reviews.username}</h3>
+                        <span class="post">${reviews.productname}</span>
+                    </div>`;
+          $("#reviews").append(reviewHtml);
         }
       });
   </script>
-   <!-- <section id="testimonials">
+   <div class="media media-review" id='reviews'>
   
-      <div class="testimonial-box-container">
-      
-        <div class="testimonial-box">
-         
-          <div class="box-top">
-           
-            <div class="profile">
-             
-              <div class="profile-img">
-                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
-              </div>
-        
-              <div class="name-user">
-                <strong>Liam mendes</strong>
-                <span>@liammendes</span>
-              </div>
-            </div>
-           
-            <div class="reviews">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-          
-            </div>
-          </div>
-          
-          <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
-              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
-              incidunt blanditiis sed atque cumque.</p>
-          </div>
-        </div>
-        
-        <div class="testimonial-box">
-        
-          <div class="box-top">
-        
-            <div class="profile">
-             
-              <div class="profile-img">
-                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
-              </div>
-              >
-              <div class="name-user">
-                <strong>Noah Wood</strong>
-                <span>@noahwood</span>
-              </div>
-            </div>
-         
-            <div class="reviews">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-         
-            </div>
-          </div>
-         
-          <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
-              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
-              incidunt blanditiis sed atque cumque.</p>
-          </div>
-        </div>
-      
-        <div class="testimonial-box">
-        
-          <div class="box-top">
-          
-            <div class="profile">
-          
-              <div class="profile-img">
-                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
-              </div>
-             
-              <div class="name-user">
-                <strong>Oliver Queen</strong>
-                <span>@oliverqueen</span>
-              </div>
-            </div>
-         
-            <div class="reviews">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            
-            </div>
-          </div>
-         
-          <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
-              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
-              incidunt blanditiis sed atque cumque.</p>
-          </div>
-        </div>
-       
-        <div class="testimonial-box">
-        
-          <div class="box-top">
-           
-            <div class="profile">
-           
-              <div class="profile-img">
-                <img src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png" />
-              </div>
-          
-              <div class="name-user">
-                <strong>Barry Allen</strong>
-                <span>@barryallen</span>
-              </div>
-            </div>
-           
-            <div class="reviews">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            
-            </div>
-          </div>
-    
-          <div class="client-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, quaerat quis? Provident
-              temporibus architecto asperiores nobis maiores nisi a. Quae doloribus ipsum aliquam tenetur voluptates
-              incidunt blanditiis sed atque cumque.</p>
-          </div>
-        </div>
-      </div>
-    </section> 
-  </body>
-  <!-- <div class="container mt-5">
-        <h2>Request Form</h2>
-        <div class="mt-5">
-            <form class="form-horizontal" action="#">
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="product">Product Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="product" placeholder="Enter Product Name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="pwd">User Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="pwd" placeholder="Enter your name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="pwd">Description:</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" cols="2"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">Submit</button>
-                        <button type="reset" class="btn btn-danger">Cancel</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> 
-  <footer>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-sm-12"></div>
-        <div class="col-sm-12 ">Hybrid app</div>
-        <div class="col-md-2 col-md-offset-1">
-          <ul>
-            <li><a href="Hybrid-digitale.html" class="cl-dar">Hybrid app</a></li>
-            <li>Twitter Clone</li>
-            <li>WhatsApp clone</li>
-            <li>Tinder Clone</li>
-            <li>Instagram Clone</li>
-            <li>Facebook clone</li>
-          </ul>
-        </div>
-        <div class="col-sm-12">
-          <a href="Native-digital.html" class="cl-dar">
-            Native app
-          </a>
-        </div>
-        <div class="col-md-2">
-          <ul>
-            <li>
-              <a href="Native-digital.html" class="cl-dar">
-                Native app
-              </a>
-            </li>
-            <li>Snap chat</li>
-
-          </ul>
-        </div>
-
-
-        <div class="col-sm-12">Customization</div>
-        <div class="col-md-2">
-          <ul>
-            <li>
-              <a href="customization.html" class="cl-dar">
-                Customization
-              </a>
-            </li>
-            <li>I have a request</li>
-            <li>About Customization</li>
-
-          </ul>
-        </div>
-        <div class="col-sm-12">My Account</div>
-
-        <div class="col-md-2">
-          <ul>
-            <li>My Account</li>
-
-            <li>Login</li>
-            <li>Signup</li>
-          </ul>
-        </div>
-        <div class="col-sm-12">About socodeur</div>
-        <div class="col-md-2">
-          <ul>
-            <li>
-              <a href="about.html" class="cl-dar">
-                About socodeur
-              </a>
-
-            </li>
-            <li>Mobile Applications</li>
-            <li>Support Store</li>
-            <li>Customization</li>
-          </ul>
-        </div>
-        <div class="col-sm-12">Support</div>
-        <div class="col-md-2">
-          <ul>
-            <li>Support</li>
-            <li>Problem</li>
-            <li>Contact Us</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-
-      <div class="row">
-        <div class="footerWrap col">
-          <p>More ways to shop: Visit an <a>Socodeur Store</a>, call 1-800-MY-Socodeur, or <a>find a reseller</a>.</p>
-
-        </div>
-        <div class="col text-right">
-          <p>
-            <a href="Languages.html">
-              <img src="images/flags/usa.png" /><span class="cl-dar">&nbsp; United State</span>
-            </a>
-          </p>
-
-        </div>
-      </div> -->
+  </div>
 </body>
 
 </html>
