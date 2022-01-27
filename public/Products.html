@@ -20,63 +20,161 @@
     crossorigin="anonymous"></script>
 
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https:unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https:unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
 
-<script>
+    const baseUrl = "http://localhost:8081";
+    const token = localStorage.getItem("token");
+    const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
 
-  const baseUrl = "http://localhost:8081";
-  const token = localStorage.getItem("token");
-  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
- 
-  axios.get(`${baseUrl}/retrieve/product/`)
-    .then((response) => {
-      console.log(response);
-      var productsHtml = "";
-      const products = response.data;
-      console.log("hi")
-      for (let i = 0; i < products.length; i++) {
-
-        if (products[i].product_image == null || products[i].product_image == "") {
-          image = "images/macbook_large.jpg";
-        } else {
-          image = baseUrl + "/upload/" + products[i].product_image;
-
+    axios.get(`${baseUrl}/retrieve/category`)
+      .then((response) => {
+        console.log(response);
+        var categoriesHtml = "";
+        const categories = response.data;
+        console.log("hi")
+        for (let i = 0; i < categories.length; i++) {
+  
+          if (categories[i].categorypics == null || categories[i].categorypics == "") {
+            image = "images/macbook_large.jpg";
+          } else {
+            image = baseUrl + "/upload/" + categories[i].categorypics;
+  
+          }
+  
+          console.log(image)
+          categoriesHtml = `
+          <div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i>${categories[i].category}</div>
+                <ul class="list-group category_block">
+                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
+                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
+                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
+                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
+                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
+                </ul>
+            </div>
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase">Last product</div>
+                <div class="card-body">
+                    <img class="img-fluid" src="https://dummyimage.com/600x400/55595c/fff" />
+                    <h5 class="card-title">Product title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="bloc_left_price">99.00 $</p>
+                </div>
+            </div>
+        </div>`;
+        //   categoriesHtml = `
+        //   <div class="w-screen mt-4" style="margin-top: 0rem !important;">
+        //   <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
+        //     <h2><b> ${categories[i].category}</b></h2>
+        //   </div>
+        //   <div class="row text-center justify-content-center">
+        //     <div class="col text-right">
+        //       <a href="reviews.html?id=${categories[i].category}" class="cl-dar ">Reviews</a>
+        //     </div>
+        //     <div class="col text-left">
+        //       <a href="productinfo.html?id=${categories[i].category}" class="cl-dar ">More info</a>
+        //     </div>
+        //   </div>
+        //   <div class="row justify-content-center pt-5">
+        //     <img src="${image}" class="img-fluid">
+        //   </div>
+        // </div>`;
+          $("#categories").append(categoriesHtml);
         }
+      });
+  
+  
+    $("#logout").click(e => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("loggedInUserID");
+      window.location.href = "/login/";
+    });
+    // <div class="row justify-content-center pt-5">
+    //         <img src="${image}" class="img-fluid">
+    //       </div>
+  </script>
+  <script>
 
-        console.log(image)
+    axios.get(`${baseUrl}/retrieve/product/`)
+      .then((response) => {
+        console.log(response);
+        var productsHtml = "";
+        const products = response.data;
+        console.log("hi")
+        for (let i = 0; i < products.length; i++) {
 
-        productsHtml = `
-        <div class="w-screen mt-4" style="margin-top: 0rem !important;">
-        <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
-          <h2><b> ${products[i].name}</b></h2>
-        </div>
-        <div class="row text-center justify-content-center">
-          <div class="col text-right">
-            <a href="reviews.html?id=${products[i].productid}" class="cl-dar ">Reviews</a>
-          </div>
-          <div class="col text-left">
-            <a href="productinfo.html?id=${products[i].productid}" class="cl-dar ">More info</a>
-          </div>
-        </div>
-        <div class="row justify-content-center pt-5">
-          <img src="${image}" class="img-fluid">
-        </div>
-      </div>`;
-        $("#products").append(productsHtml);
-      }
+          if (products[i].product_image == null || products[i].product_image == "") {
+            image = "images/macbook_large.jpg";
+          } else {
+            image = baseUrl + "/upload/" + products[i].product_image;
+
+          }
+
+          console.log(image)
+          productsHtml = `
+          <div class="col">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">${products[i].name}</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="row">
+                                  <div class="col">
+                                    <a href="productinfo.html?id=${products[i].productid}" class="btn btn-success btn-block">View</a>
+                                </div>
+                                <div class="col">
+                                  <a href="reviews.html?id=${products[i].productid}" class="btn btn-success btn-block">Reviews</a>
+                                </div>
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+          //   productsHtml = `
+          //   <div class="w-screen mt-4" style="margin-top: 0rem !important;">
+          //   <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
+          //     <h2><b> ${products[i].name}</b></h2>
+          //   </div>
+          //   <div class="row text-center justify-content-center">
+          //     <div class="col text-right">
+          //       <a href="reviews.html?id=${products[i].productid}" class="cl-dar ">Reviews</a>
+          //     </div>
+          //     <div class="col text-left">
+          //       <a href="productinfo.html?id=${products[i].productid}" class="cl-dar ">More info</a>
+          //     </div>
+          //   </div>
+          //   <div class="row justify-content-center pt-5">
+          //     <img src="${image}" class="img-fluid">
+          //   </div>
+          // </div>`;
+          $("#products").append(productsHtml);
+        }
+      });
+
+
+    $("#logout").click(e => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("loggedInUserID");
+      window.location.href = "/login/";
     });
 
-
-  $("#logout").click(e => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("loggedInUserID");
-    window.location.href = "/login/";
-  });
-
-</script>
+  </script>
 </head>
+
 <body>
 
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -134,7 +232,165 @@
   </header>
 
   <div id="products"></div>
-  <!-- <div class="w-screen mt-4" style="margin-top: 0rem !important;">
+
+  </body>
+  <div id='categories'>
+    <!-- <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
+                <ul class="list-group category_block">
+                    <li class="list-group-item"><a href="category.html">Cras justo odio</a></li>
+                    <li class="list-group-item"><a href="category.html">Dapibus ac facilisis in</a></li>
+                    <li class="list-group-item"><a href="category.html">Morbi leo risus</a></li>
+                    <li class="list-group-item"><a href="category.html">Porta ac consectetur ac</a></li>
+                    <li class="list-group-item"><a href="category.html">Vestibulum at eros</a></li>
+                </ul>
+            </div>
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase">Last product</div>
+                <div class="card-body">
+                    <img class="img-fluid" src="https://dummyimage.com/600x400/55595c/fff" />
+                    <h5 class="card-title">Product title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="bloc_left_price">99.00 $</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">Product title</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                              <div class="col">
+                                <a href="#" class="btn btn-success btn-block">View</a>
+                            </div>
+                            <div class="col">
+                              <a href="#" class="btn btn-success btn-block">Reviews</a>
+                          </div>
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">Product title</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">Product title</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">Product title</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">Product title</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">Product title</a></h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>
+</html>
+<!-- <div class="w-screen mt-4" style="margin-top: 0rem !important;">
       <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
         <h2><b>MacBook Pro</b></h2>
       </div>
@@ -178,7 +434,7 @@
 
 
 
-  <!--<div class="w-screen pt-4" style="background-color: #e3e3e3;" id='products'>
+<!--<div class="w-screen pt-4" style="background-color: #e3e3e3;" id='products'>
     <div class="row">
        <div class="col-lg-6 portfolio-item">
          <div class="card h-100">
@@ -199,7 +455,7 @@
            <a href="#"><img class="card-img-top" src="/images/pencil_large.jpg" alt=""></a>
          </div> 
   </div>-->
-  <!-- <div class="col-lg-6 portfolio-item">
+<!-- <div class="col-lg-6 portfolio-item">
          <div class="card h-100">
 
            <div class="card-body">
@@ -282,7 +538,7 @@
 
 
 
-  <!-- <div class="col-lg-12 portfolio-item">
+<!-- <div class="col-lg-12 portfolio-item">
          <div class="bg-white"
            style="background-image: url('/images/families_large.jpg');height: 500px;background-repeat: round;">
            <div class="row" style="display: flex;align-items: center;">
