@@ -35,69 +35,41 @@
         var categoriesHtml = "";
         const categories = response.data;
         console.log("hi")
-        for (let i = 0; i < categories.length; i++) {
-          if (categories[i].categorypics == null || categories[i].categorypics == "") {
-            image = "images/macbook_large.jpg";
-          } else {
-            image = baseUrl + "/upload/" + categories[i].categorypics;
-  
-          }
-          for (let i = 0; i < categories.length; i++) {
-            const productname = categories[i];
-            console.log(productname)
-            $("#categoryname").append(`<li class="list-group-item">${categories.category}</li>`)
-          }
-        }
-      })
-        .catch((error) => {
-          console.log(error);
-        });
-          
-          categoriesHtml = `
-          <div class="container">
-    <div class="row">
+        categoriesHtml = `
+          <div class="row">
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i></div>
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i>Categories</div>
                 <ul class="list-group category_block">
-                    <li class="list-group-item" id='categoryname'></li>
-                    <li class="list-group-item" id='categoryname'></li>
-                    <li class="list-group-item" id='categoryname'></li>
-                    <li class="list-group-item" id='categoryname'></li>
-                    <li class="list-group-item" id='categoryname'></li>
+                  
                 </ul>
-            </div>
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase">Last product</div>
-                <div class="card-body">
-                    <img class="img-fluid" src="${categories[i].image}" />
-                    <h5 class="card-title">Product title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="bloc_left_price">99.00 $</p>
-                </div>
-            </div>
-        </div>`;
-        //   categoriesHtml = `
-        //   <div class="w-screen mt-4" style="margin-top: 0rem !important;">
-        //   <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
-        //     <h2><b> ${categories[i].category}</b></h2>
-        //   </div>
-        //   <div class="row text-center justify-content-center">
-        //     <div class="col text-right">
-        //       <a href="reviews.html?id=${categories[i].category}" class="cl-dar ">Reviews</a>
-        //     </div>
-        //     <div class="col text-left">
-        //       <a href="productinfo.html?id=${categories[i].category}" class="cl-dar ">More info</a>
-        //     </div>
-        //   </div>
-        //   <div class="row justify-content-center pt-5">
-        //     <img src="${image}" class="img-fluid">
-        //   </div>
-        // </div>`;
-          $("#categories").append(categoriesHtml);
-        
-  
-  
+            </div>`;
+        $("#categories").append(categoriesHtml);
+
+        categories.forEach((categories) => {
+          if (categories.categorypics == null || categories.categorypics == "") {
+            image = "images/macbook_large.jpg";
+          } else {
+            image = baseUrl + "/upload/" + categories.categorypics;
+          }
+        });
+        categories.forEach((categories) => {
+          const categoryname = categories;
+          console.log(categoryname)
+          $("#categoryname").append(`<li class="list-group-item">${categories.category}</li>`);
+        });
+      }
+      )
+
+      .catch((error) => {
+        console.log(error);
+      });
+
+
+
+
+
+
     $("#logout").click(e => {
       localStorage.removeItem("token");
       localStorage.removeItem("loggedInUserID");
@@ -115,63 +87,47 @@
         var productsHtml = "";
         const products = response.data;
         console.log("hi")
-        for (let i = 0; i < products.length; i++) {
+        products.forEach((products) => {
 
-          if (products[i].product_image == null || products[i].product_image == "") {
+          if (products.product_image == null || products.product_image == "") {
             image = "images/macbook_large.jpg";
           } else {
-            image = baseUrl + "/upload/" + products[i].product_image;
+            image = baseUrl + "/upload/" + products.product_image;
 
           }
 
           console.log(image)
-          // productsHtml = `
-          // <div class="col">
-          //   <div class="row">
-          //       <div class="col-12 col-md-6 col-lg-4">
-          //           <div class="card">
-          //               <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
-          //               <div class="card-body">
-          //                   <h4 class="card-title"><a href="product.html" title="View Product">${products[i].name}</a></h4>
-          //                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          //                       <div class="row">
-          //                         <div class="col">
-          //                           <a href="productinfo.html?id=${products[i].productid}" class="btn btn-success btn-block">View</a>
-          //                       </div>
-          //                       <div class="col">
-          //                         <a href="reviews.html?id=${products[i].productid}" class="btn btn-success btn-block">Reviews</a>
-          //                       </div>
-          //                       <div class="col">
-          //                           <p class="btn btn-danger btn-block">99.00 $</p>
-          //                       </div>
-          //                       <div class="col">
-          //                           <a href="Cart.html" class="btn btn-success btn-block">Add to cart</a>
-          //                       </div>
-          //                   </div>
-          //               </div>
-          //           </div>
-          //       </div>`;
-          //   productsHtml = `
-          //   <div class="w-screen mt-4" style="margin-top: 0rem !important;">
-          //   <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
-          //     <h2><b> ${products[i].name}</b></h2>
-          //   </div>
-          //   <div class="row text-center justify-content-center">
-          //     <div class="col text-right">
-          //       <a href="reviews.html?id=${products[i].productid}" class="cl-dar ">Reviews</a>
-          //     </div>
-          //     <div class="col text-left">
-          //       <a href="productinfo.html?id=${products[i].productid}" class="cl-dar ">More info</a>
-          //     </div>
-          //   </div>
-          //   <div class="row justify-content-center pt-5">
-          //     <img src="${image}" class="img-fluid">
-          //   </div>
-          // </div>`;
+          productsHtml = `
+          <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card w-100">
+                        <div class="card-img-top w-100 d-flex justify-content-center align-items-center" style="aspect-ratio: 4/3;background:url(${image});background-size:contain;background-repeat:no-repeat;background-position: center;">
+                          
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="product.html" title="View Product">${products.name}</a></h4>
+                            
+                            <div class="row">
+                              <div class="col">
+                                </div>
+                                <div class="col">
+                                    <p class="btn btn-success btn-block" href='productinfo.html?id=${products.productid}'>Views</p>
+                                </div>
+                                <div class="col">
+                                    <p class="btn btn-success btn-block" href='reviews.html?id=${products.productid}'>Reviews</p>
+                                </div>
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block">99.00 $</p>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
           $("#products").append(productsHtml);
-        }
-      });
-
+        });
+      })
 
     $("#logout").click(e => {
       localStorage.removeItem("token");
@@ -221,7 +177,7 @@
   </nav>
   <header>
 
-    <div class="py-5" style="margin-top:10px;background-color: #141414;color: white;padding-bottom: 0rem !important;">
+    <div class="py-5" style="margin-top:10px;background-color: white;color: white;padding-bottom: 0rem !important;">
       <div class="row justify-content-center">
         <ul class="list-inline">
           <li class="list-inline-item text-center">
@@ -238,11 +194,18 @@
 
   </header>
 
-  <div id="products"></div>
+  <div class="col">
+    <div class="col">
+      <div class="row" id='products'>
+      </div>
+    </div>
+    <div class="card-header bg-primary text-white text-uppercase" id='categories'></div>
+    <ul class="list-group category_block" id='categoryname'>
+    </ul>
+  </div>
+</body>
 
-  </body>
-  <div id='categories'>
-    <div class="row">
+<!-- <div class="row">
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
                 <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
@@ -262,7 +225,7 @@
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <p class="bloc_left_price">99.00 $</p>
                 </div>
-            </div>
+            </div>  
         </div>
         <div class="col">
             <div class="row">
@@ -274,10 +237,10 @@
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                             <div class="row">
                               <div class="col">
-                                <a href="#" class="btn btn-success btn-block">View</a>
+                                <a href="productinfo.html" class="btn btn-success btn-block">View</a>
                             </div>
                             <div class="col">
-                              <a href="#" class="btn btn-success btn-block">Reviews</a>
+                              <a href="reviews.html" class="btn btn-success btn-block">Reviews</a>
                           </div>
                                 <div class="col">
                                     <p class="btn btn-danger btn-block">99.00 $</p>
@@ -395,7 +358,8 @@
         </div> 
 
     </div>
-</div>
+</div> -->
+
 </html>
 <!-- <div class="w-screen mt-4" style="margin-top: 0rem !important;">
       <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
@@ -709,3 +673,47 @@
 </body>
 
 </html>
+
+<!-- // productsHtml = `
+// <div class="col">
+//   <div class="row">
+//       <div class="col-12 col-md-6 col-lg-4">
+//           <div class="card">
+//               <img class="card-img-top" src="https://dummyimage.com/600x400/55595c/fff" alt="Card image cap">
+//               <div class="card-body">
+//                   <h4 class="card-title"><a href="product.html" title="View Product">${products[i].name}</a></h4>
+//                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//                       <div class="row">
+//                         <div class="col">
+//                           <a href="productinfo.html?id=${products[i].productid}" class="btn btn-success btn-block">View</a>
+//                       </div>
+//                       <div class="col">
+//                         <a href="reviews.html?id=${products[i].productid}" class="btn btn-success btn-block">Reviews</a>
+//                       </div>
+//                       <div class="col">
+//                           <p class="btn btn-danger btn-block">99.00 $</p>
+//                       </div>
+//                       <div class="col">
+//                           <a href="Cart.html" class="btn btn-success btn-block">Add to cart</a>
+//                       </div>
+//                   </div>
+//               </div>
+//           </div>
+//       </div>`;
+//   productsHtml = `
+//   <div class="w-screen mt-4" style="margin-top: 0rem !important;">
+//   <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
+//     <h2><b> ${products[i].name}</b></h2>
+//   </div>
+//   <div class="row text-center justify-content-center">
+//     <div class="col text-right">
+//       <a href="reviews.html?id=${products[i].productid}" class="cl-dar ">Reviews</a>
+//     </div>
+//     <div class="col text-left">
+//       <a href="productinfo.html?id=${products[i].productid}" class="cl-dar ">More info</a>
+//     </div>
+//   </div>
+//   <div class="row justify-content-center pt-5">
+//     <img src="${image}" class="img-fluid">
+//   </div>
+// </div>`; -->
