@@ -58,7 +58,7 @@
             // axios.get(`${baseUrl}/admin/product/new`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
             //   .then((response) => {
             //     const post = response.data;
-                
+
             //     const postHtml = `
             //         <div class="card" style="margin-top: 2rem;">
             //             <div class="card-body">
@@ -77,17 +77,15 @@
           });
       }
     });
-  });
 
-  $(document).ready(function () {
     $("#addCategory").click(function () {
-      const name = $("#name").val();
-      const description = $("#description").val();
-      
+      const name = $("#categoryName").val();
+      const description = $("#catDescription").val();
+
       const requestBody = {
-        name: name,
+        category: name,
         description: description,
-        
+
       };
 
       if (token === null || isNaN(loggedInUserID)) {
@@ -105,7 +103,7 @@
             // axios.get(`${baseUrl}/admin/category/new${response.data.categoryid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
             //   .then((response) => {
             //     const post = response.data;
-                
+
             //     const postHtml = `
             //         <div class="card" style="margin-top: 2rem;">
             //             <div class="card-body">
@@ -125,6 +123,7 @@
       }
     });
   });
+
 
   $("#logout").click(e => {
     localStorage.removeItem("token");
@@ -207,7 +206,7 @@
         <div class="card-header">
           <i class="fa fa-table"></i> Operations on Category record
           <span>
-            <button data-toggle="modal" data-target="#addcategory" class="btn btn-success">Add new category</button>
+            <button data-toggle="modal" data-target="#categoryModal" class="btn btn-success">Add new category</button>
 
           </span>
         </div>
@@ -298,7 +297,7 @@
             </div>
           </div>
         </div>
-        <div class="modal fade" id="addcategory" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
+        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -313,15 +312,15 @@
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="categoryName">Category:</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" rows="5" cols="2"
-                        placeholder="Enter category name" id='name'></textarea>
+                      <textarea class="form-control" rows="5" cols="2" placeholder="Enter category name"
+                        id='categoryName'></textarea>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="desc">Description:</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" rows="5" cols="2"
-                        placeholder="Enter category description" id='description'></textarea>
+                      <textarea class="form-control" rows="5" cols="2" placeholder="Enter category description"
+                        id='catDescription'></textarea>
 
                     </div>
                   </div>

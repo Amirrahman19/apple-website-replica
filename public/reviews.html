@@ -25,150 +25,108 @@
   const token = localStorage.getItem("token");
   const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
   $(document).ready(function () {
+
+    var productID = 0;
+
     console.log("run")
     if (token === null || isNaN(loggedInUserID)) {
       loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
       $("#loginout").append(loginhtml);
     } else {
-      console.log("Login!")
-      const postHtml = `
-    <div class="container">
-      <div class="row text-center justify-content-center pt-5 cl-white">
-        <div class="container-fluid mx-4">
 
+      console.log("Login!");
 
-          <h2 id="fh2">WE APPRECIATE YOUR REVIEW!</h2>
-          <h6 id="fh6">Your review will help us to improve our web hosting quality products, and customer services.</h6>
+      var productID = getParameterByName('id');
+      console.log(productID);
 
+      if (productID != null) {
 
-          <form>
+        const postHtml = ``;
+        //$("#posts").append(postHtml);
+        axios.get(`${baseUrl}/productname`)
+          .then((response) => {
+            console.log(response.data);
+            const product = response.data
+            for (let i = 0; i < product.length; i++) {
+              const productname = product[i];
+              console.log(productname)
+              $("#productname").append(`<option value="${productname.productid}">${productname.name}</option>`)
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
-            <div class="form-group row">
-              <label for="email" class="col-sm-3 col-form-label"></label>
-              <div class="col-sm-9">
-               
-                <label for="cars">Choose product:</label>
-
-                <select name="product" id="productname">
-                </select>
-              </div>
-            </div>
-           
-            <!-- Rating -->
-            <br />
-            <br />
-            <label>Rate this website!
-            </label>
-            <fieldset class="selections" id='rating'>
-              <label>Needs Work</label>
-              <input type="radio" class="radio" name="pageRating" value="0">
-              <input type="radio" class="radio" name="pageRating" value="1">
-              <input type="radio" class="radio" name="pageRating" value="2">
-              <input type="radio" class="radio" name="pageRating" value="3">
-              <input type="radio" class="radio" name="pageRating" value="4">
-              <input type="radio" class="radio" name="pageRating" value="5">
-              <input type="radio" class="radio" name="pageRating" value="6">
-              <input type="radio" class="radio" name="pageRating" value="7">
-              <input type="radio" class="radio" name="pageRating" value="8">
-              <input type="radio" class="radio" name="pageRating" value="9">
-              <input type="radio" class="radio" name="pageRating" value="10">
-              <label>Great</label>
-            </fieldset>
-
-          
-            <label for="comment">
-              Write your reviews here:
-
-            </label>
-            <br>
-            <textarea class="feedbackInfo comment" rows="5" maxlength="500" placeholder="Additional comments"
-              id="review"></textarea>
-            <div class="container">
-              <a class="btn btn-primary btn-block" id="post-review" href="#">Submit</a>
-            </div>
-
-
-          </form>
-        </div>
-      </div>
-     
-    </div>`;
-      $("#posts").append(postHtml);
-      axios.get(`${baseUrl}/productname`)
-        .then((response) => {
-          console.log(response.data);
-          const product = response.data
-          for (let i = 0; i < product.length; i++) {
-            const productname = product[i];
-            console.log(productname)
-            $("#productname").append(`<option value="${productname.productid}">${productname.name}</option>`)
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
-
-    $("#post-review").click(function () {
-      const userid = $("#username").val();
-      const productid = $("#productid option:selected").val();
-      const rating = $(".radio:checked").val();
-      const review = $("#review").val();
-      const requestBody = {
-        userid: userid,
-        productid: productid,
-        rating: rating,
-        review: review
-      };
-      console.log(productid)
-      axios.post(`${baseUrl}/user/${productid}/review/`, requestBody, { headers: { "Authorization": "Bearer " + token } })
-        .then((response) => {
-          // reset form value.
-          $("#create-post-form-body").val("");
-          // fetch the post with the returned postID
-          axios.get(`${baseUrl}/product/${productid}/reviews`, response.data.postID)
+        $("#post-review").click(function () {
+          const productid = productID
+          const rating = $(".radio:checked").val();
+          const review = $("#review").val();
+          const requestBody = {
+            userid: loggedInUserID,
+            productid: productid,
+            rating: rating,
+            review: review
+          };
+          console.log(productid)
+          axios.post(`${baseUrl}/user/${productid}/review/`, requestBody, { headers: { "Authorization": "Bearer " + token } })
             .then((response) => {
-              const post = response.data
+              // reset form value.
+              $("#create-post-form-body").val("");
+              // fetch the post with the returned postID
+              /*axios.get(`${baseUrl}/product/${productid}/reviews`, response.data.postID)
+                .then((response) => {
+                  const post = response.data
 
-            })
-            .catch((error) => {
-              console.log(error);
+                })
+                .catch((error) => {
+                  console.log(error);
+                });*/
             });
         });
-    })
 
+        axios.get(`${baseUrl}/product/${productID}/reviews`)
+          .then((response) => {
+            console.log(response);
+            var reviewHtml = "";
+            const reviews = response.data;
+            console.log("hi")
+            reviewHtml = `<div class="container">
+        <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
+            <h4 class="font-cond-l fg-accent lts-md mgb-10" contenteditable="false">Not Yet Convinced?</h4>
+            <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
+        </div>
+        <ul class="hash-list cols-3 cols-1-xs pad-30-all align-center text-sm">`;
+            reviews.forEach((reviews) => {
+              reviewHtml += `
+            <li>
+              <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="wpx-100 img-round mgb-20" title="" alt="" data-edit="false" data-editor="field" data-field="src[Image Path]; title[Image Title]; alt[Image Alternate Text]">
+              <p class="fs-110 font-cond-l" contenteditable="false">${reviews.review}</p>
+              <h5 class="font-cond mgb-5 fg-text-d fs-130" contenteditable="false">${reviews.username}</h5>
+              <small class="font-cond case-u lts-sm fs-80 fg-text-l" contenteditable="false">${reviews.productname}</small>
+            </li>
+                `;
+
+            })
+
+            reviewHtml += `</ul></div>`;
+            $("#reviews").append(reviewHtml);
+          });
+
+
+      }
+
+
+    }
+  });
+
+  function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
   }
-
-
-  );
-</script>
-<script>
-  axios.get(`${baseUrl}/retrieve/reviews`)
-    .then((response) => {
-      console.log(response);
-      var reviewHtml = "";
-      const reviews = response.data;
-      console.log("hi")
-      reviews.forEach((reviews) =>{
-           reviewHtml = `
-           <div class="container">
-  <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
-      <h4 class="font-cond-l fg-accent lts-md mgb-10" contenteditable="false">Not Yet Convinced?</h4>
-      <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
-  </div>
-  <ul class="hash-list cols-3 cols-1-xs pad-30-all align-center text-sm">
-      <li>
-        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="wpx-100 img-round mgb-20" title="" alt="" data-edit="false" data-editor="field" data-field="src[Image Path]; title[Image Title]; alt[Image Alternate Text]">
-        <p class="fs-110 font-cond-l" contenteditable="false">${reviews.review}</p>
-        <h5 class="font-cond mgb-5 fg-text-d fs-130" contenteditable="false">${reviews.username}</h5>
-        <small class="font-cond case-u lts-sm fs-80 fg-text-l" contenteditable="false">${reviews.productname}</small>
-      </li>
-           `;
-
-        $("#reviews").append(reviewHtml);
-      })  
-    });
 </script>
 
 <body>
@@ -218,11 +176,11 @@
   </div>
 
   <div class="container" id='reviews'>
-   
+
   </div>
 
-  <div class="container" id='posts'>
-    <!--    <div class="row text-center justify-content-center pt-5 cl-white">
+
+  <!--    <div class="row text-center justify-content-center pt-5 cl-white">
         <div class="container-fluid mx-4">
 
 
@@ -282,6 +240,56 @@
   </div>
   </div>
 -->
+
+  <div class="container" id='posts'>
+    <div class="row text-center justify-content-center pt-5 cl-white">
+      <div class="container-fluid mx-4">
+
+
+        <h2 id="fh2">WE APPRECIATE YOUR REVIEW!</h2>
+        <h6 id="fh6">Your review will help us to improve our web hosting quality products, and customer services.</h6>
+
+
+        <form>
+
+          <!-- Rating -->
+          <br />
+          <br />
+          <label>Rate this website!
+          </label>
+          <fieldset class="selections" id='rating'>
+            <label>Needs Work</label>
+            <input type="radio" class="radio" name="pageRating" value="0">
+            <input type="radio" class="radio" name="pageRating" value="1">
+            <input type="radio" class="radio" name="pageRating" value="2">
+            <input type="radio" class="radio" name="pageRating" value="3">
+            <input type="radio" class="radio" name="pageRating" value="4">
+            <input type="radio" class="radio" name="pageRating" value="5">
+            <input type="radio" class="radio" name="pageRating" value="6">
+            <input type="radio" class="radio" name="pageRating" value="7">
+            <input type="radio" class="radio" name="pageRating" value="8">
+            <input type="radio" class="radio" name="pageRating" value="9">
+            <input type="radio" class="radio" name="pageRating" value="10">
+            <label>Great</label>
+          </fieldset>
+
+
+          <label for="comment">
+            Write your reviews here:
+
+          </label>
+          <br>
+          <textarea class="feedbackInfo comment" rows="5" maxlength="500" placeholder="Additional comments"
+            id="review"></textarea>
+          <div class="container">
+            <a class="btn btn-primary btn-block" id="post-review" href="#">Submit</a>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+
   </div>
 </body>
 
