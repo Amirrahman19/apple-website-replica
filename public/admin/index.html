@@ -54,26 +54,7 @@
             var post = response.data;
             console.log(post);
             window.location.reload();
-            // fetch the post with the returned postID
-            // axios.get(`${baseUrl}/admin/product/new`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
-            //   .then((response) => {
-            //     const post = response.data;
-
-            //     const postHtml = `
-            //         <div class="card" style="margin-top: 2rem;">
-            //             <div class="card-body">
-            //                 <p class="card-text">${post.text_body}</p>
-            //             </div>
-            //             <div class="card-footer text-muted">
-            //                 ${post.created_at}
-            //             </div>
-            //         </div>
-            //         `;
-            //     $("#posts").prepend(postHtml);
-            //   })
-            //   .catch((error) => {
-            //     console.log(error);
-            //   });
+     
           });
       }
     });
@@ -99,26 +80,7 @@
             var post = response.data;
             console.log(post);
             window.location.reload();
-            // fetch the post with the returned postID
-            // axios.get(`${baseUrl}/admin/category/new${response.data.categoryid}`, requestBody, { headers: { "Authorization": "Bearer " + token } }) 
-            //   .then((response) => {
-            //     const post = response.data;
-
-            //     const postHtml = `
-            //         <div class="card" style="margin-top: 2rem;">
-            //             <div class="card-body">
-            //                 <p class="card-text">${post.text_body}</p>
-            //             </div>
-            //             <div class="card-footer text-muted">
-            //                 ${post.created_at}
-            //             </div>
-            //         </div>
-            //         `;
-            //     $("#posts").prepend(postHtml);
-            //   })
-            //   .catch((error) => {
-            //     console.log(error);
-            //   });
+            
           });
       }
     });
@@ -207,6 +169,20 @@
           <i class="fa fa-table"></i> Operations on Category record
           <span>
             <button data-toggle="modal" data-target="#categoryModal" class="btn btn-success">Add new category</button>
+
+          </span>
+        </div>
+        <div class="card-header">
+          <i class="fa fa-table"></i> Operations on Product Image record
+          <span>
+            <button data-toggle="modal" data-target="#productImageModal" class="btn btn-success">Add new product image</button>
+
+          </span>
+        </div>
+        <div class="card-header">
+          <i class="fa fa-table"></i> Operations on Category Image record
+          <span>
+            <button data-toggle="modal" data-target="#categoryImageModal" class="btn btn-success">Add new category image</button>
 
           </span>
         </div>
@@ -324,6 +300,40 @@
 
                     </div>
                   </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-success" id='addCategory'>Submit</button>
+                      <button type="reset" class="btn btn-danger">Reset</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="productImageModal" tabindex="-1" role="dialog" aria-labelledby="productAddModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="productAddModalLabel">Add product image</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true"></span>
+                </button>
+              </div>
+            
+                  <div class="form-group">
+                    <label class="control-label col-sm-2" for="desc">Image</label>
+                    <div class="col-sm-10">
+                      <input type="file" id="myFile" name="filename">
+
+                    </div>
+                  </div>  
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
