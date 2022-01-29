@@ -36,14 +36,26 @@
         const categories = response.data;
         console.log("hi")
         categoriesHtml = `
-          <div class="row">
-        <div class="col-12 col-sm-3">
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i>Categories</div>
-                <ul class="list-group category_block">
-                  
-                </ul>
+        <div class="dropdown show">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#"></a>
+                <a class="dropdown-item" href="#"></a>
+                <a class="dropdown-item" href="#"></a>
+              </div>
             </div>`;
+        // categoriesHtml = `
+        //   <div class="row">
+        // <div class="col-12 col-sm-3">
+        //     <div class="card bg-light mb-3">
+        //         <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i>Categories</div>
+        //         <ul class="list-group category_block">
+
+        //         </ul>
+        //     </div>`;
         $("#categories").append(categoriesHtml);
 
         categories.forEach((categories) => {
@@ -56,7 +68,7 @@
         categories.forEach((categories) => {
           const categoryname = categories;
           console.log(categoryname)
-          $("#categoryname").append(`<li class="list-group-item">${categories.category}</li>`);
+          $("#categoryname").append(` <a class="dropdown-item" href="#">${categories.category}</a>`);
         });
       }
       )
@@ -195,14 +207,25 @@
     <ul class="list-group category_block" id='categoryname'>
     </ul>
   </div> -->
-    <div class="col">
-      <div class="row" id='products'>
-      </div>
+  <!-- <div class='col' class="card-header bg-primary text-white text-uppercase" id='categories'></div>
+  <ul class="list-group category_block" id='categoryname'>
+  </ul>
+  </div> -->
+  <div class="dropdown show" id='categories'>
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id='categoryname'>
     </div>
-     <div class="card-header bg-primary text-white text-uppercase" id='categories'></div>
+  </div>
+  <div class="col">
+    <div class="row" id='products'>
+    </div>
+  </div>
+  <!-- <div class = 'col' class="card-header bg-primary text-white text-uppercase" id='categories'></div>
     <ul class="list-group category_block" id='categoryname'>
     </ul>
-  </div> 
+  </div>  -->
 </body>
 
 <!-- <div class="row">
