@@ -35,23 +35,7 @@
         var categoriesHtml = "";
         const categories = response.data;
         console.log("hi")
-        // categoriesHtml = `
-        // <div class="col">
-          
-        //   <div class="checkbox">
-        //     <label><input type="checkbox" value=""></label>
-        //   </div>
-        //     <div class="checkbox">
-        //     <label><input type="checkbox" value=""></label>
-        //   </div>
-        //   <div class="checkbox">
-        //     <label><input type="checkbox" value=""></label>
-        //   </div>
-        //   <div class="checkbox">
-        //     <label><input type="checkbox" value=""></label>
-        //   </div>
-       
-        // </div>`;
+  
         categoriesHtml = `
           <div class="row">
         <div class="col-12 ">
@@ -88,9 +72,7 @@
       localStorage.removeItem("loggedInUserID");
       window.location.href = "/login/";
     });
-    // <div class="row justify-content-center pt-5">
-    //         <img src="${image}" class="img-fluid">
-    //       </div>
+
   </script>
   <script>
 
@@ -149,28 +131,7 @@
     });
 
   </script>
-  <!-- <script>
-    $(document).ready(function() {
-      $('search-input').on('input', function() {
-        $('product-listing').empty();
-        var input = $(this).val();
-        var productsearch = products.filter(item => {
-          if( item.name.toLowerCase().includes(input.toLowerCase())) {
-            return item;
-          } else if(item.brand.toLowerCase().includes(input.toLowerCase())) {
-            return item;
-          } else if(item.category.toLowerCase().includes(input.toLowerCase())) {
-            return item;
-          } else if(item.category.toLowerCase().includes(input.toLowerCase()) || item.brand.toLowerCase().includes(input.toLowerCase())) {
-            return item;
-          }
-        });
-        productSearch.forEach(item, index) 
-        })
-        
-      });
-    
-  </script> -->
+
 </head>
 
 <body>
