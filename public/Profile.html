@@ -17,7 +17,27 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <title>Document</title>
 </head>
-
+<!-- <script>
+  // API url
+  const baseUrl = "http://localhost:8081";
+  const token = localStorage.getItem("token");
+  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+  $(document).ready(function () {
+   
+  $("#user-interest").click(function () {
+    
+    axios.post(`${baseUrl}/interest/${interests.userid}`, requestBody)
+      .then((response) => {
+        var interests = response.data
+        console.log(response);
+        alert("You have added this product to your interest list");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+  });
+</script> -->
 <body>
 
   <div class="container-xl px-4 mt-4">
