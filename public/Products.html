@@ -149,6 +149,28 @@
     });
 
   </script>
+  <!-- <script>
+    $(document).ready(function() {
+      $('search-input').on('input', function() {
+        $('product-listing').empty();
+        var input = $(this).val();
+        var productsearch = products.filter(item => {
+          if( item.name.toLowerCase().includes(input.toLowerCase())) {
+            return item;
+          } else if(item.brand.toLowerCase().includes(input.toLowerCase())) {
+            return item;
+          } else if(item.category.toLowerCase().includes(input.toLowerCase())) {
+            return item;
+          } else if(item.category.toLowerCase().includes(input.toLowerCase()) || item.brand.toLowerCase().includes(input.toLowerCase())) {
+            return item;
+          }
+        });
+        productSearch.forEach(item, index) 
+        })
+        
+      });
+    
+  </script> -->
 </head>
 
 <body>
