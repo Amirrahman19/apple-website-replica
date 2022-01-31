@@ -9,67 +9,154 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/modern-business.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
-    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> -->
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <title>Document</title>
+  <title>Profile</title>
 </head>
-<!-- <script>
-   $(document).ready(function () {
+<script>
+  // API url	
+  const baseUrl = "http://localhost:8081";
+  const token = localStorage.getItem("token");
+  const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+  function interest(categoryid) {
+    console.log(categoryid);
+    const requestBody = {
+      categoryid: categoryid,
+      userid: parseInt(localStorage.getItem("loggedInUserID"))
+    };
+    var userid = parseInt(localStorage.getItem("loggedInUserID"))
+    if (document.getElementById(`${categoryid}`).checked) {
+      axios.post(`${baseUrl}/interest/${userid}`, requestBody)
+        .then((response) => {
+          console.log(response);
+          alert("Interest Added");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Interest not Added");
+        });
+    }
+    else {
+      axios.delete(`${baseUrl}/user/interest/${categoryid}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then((response) => {
+          console.log(response);
+          alert("Interest Removed");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Interest not Removed");
+        });
+    }
+  }
+  $(document).ready(function () {
     axios.get(`${baseUrl}/retrieve/category`)
       .then((response) => {
         console.log(response);
         var categoriesHtml = "";
         const categories = response.data;
         console.log("hi")
-  
-        categoriesHtml = `
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> I have a bike</label><br>
-            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-            <label for="vehicle2"> I have a car</label><br>
-            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-            <label for="vehicle3"> I have a boat</label><br>`;
-        $("#categories").append(categoriesHtml);
+        categories.forEach(category => {
+          categoriesHtml += `
+        <div>
+              <input type='checkbox' id='${category.categoryid}' onclick='interest(${category.categoryid})' />
+              <label for='${category.categoryid}'>${category.category}
+                
+              </label>
+            </div>`;
+        })
+        $("#interest").append(categoriesHtml);
+        axios.get(`${baseUrl}/interest/${loggedInUserID}`)
+          .then((response) => {
+            console.log(response);
+            const interests = response.data.interest;
+            interests.forEach(interest => {
+              $("#" + interest.categoryid).prop("checked", true);
+            })
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+        if (token === null || isNaN(loggedInUserID)) {
+          console.log("not logged in");
+          loginhtml = `<a class='btn btn-dark' href="/Login.html">Login</a>`;
+          $("#loginout").append(loginhtml);
 
-        categories.forEach((categories) => {
-          if (categories.categorypics == null || categories.categorypics == "") {
-            image = "images/macbook_large.jpg";
-          } else {
-            image = baseUrl + "/upload/" + categories.categorypics;
-          }
-        });
-        categories.forEach((categories) => {
-          const categoryname = categories;
-          console.log(categoryname)
-          $("#categoryname").append(` <label for="vehicle2">${categories.category}</label><br>`);
-        });
-      }
-      )
+        } else {
+          console.log("logged in");
+          loginhtml2 = `<button class='btn btn-danger'id='logout'>Logout</button>`;
+          $("#loginout").append(loginhtml2);
 
-      .catch((error) => {
-        console.log(error);
-      });
-      
- 
-   
-  $("#user-interest").click(function () {
-    
-    axios.post(`${baseUrl}/interest/${interests.userid}`, requestBody)
-      .then((response) => {
-        var interests = response.data
-        console.log(response);
-        alert("You have added this product to your interest list");
-      })
-      .catch((error) => {
-        console.log(error);
+
+          $("#logout").click(e => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("loggedInUserID");
+            window.location.href = "/";
+          });
+        }
+
+        //  $(document).ready(function () {
+        //   axios.get(`${baseUrl}/interest/${userid}`)
+        //     .then((response) => {
+        //       console.log(response);
+        //       var categoriesHtml = "";
+        //       const categories = response.data;
+        //       console.log("hi")
+
+        //       categoriesHtml = `
+        //       <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        //           <label for="vehicle1"> I have a bike</label><br>
+        //           <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+        //           <label for="vehicle2"> I have a car</label><br>
+        //           <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+        //           <label for="vehicle3"> I have a boat</label><br>`;
+        //       $("#categories").append(categoriesHtml);
+
+        //       categories.forEach((categories) => {
+        //         if (categories.categorypics == null || categories.categorypics == "") {
+        //           image = "images/macbook_large.jpg";
+        //         } else {
+        //           image = baseUrl + "/upload/" + categories.categorypics;
+        //         }
+        //       });
+        //       categories.forEach((categories) => {
+        //         const categoryname = categories;
+        //         console.log(categoryname)
+        //         $("#categoryname").append(` <label for="vehicle2">${categories.category}</label><br>`);
+        //       });
+        //     }
+        //     )
+
+        //     .catch((error) => {
+        //       console.log(error);
+        //     });
+
+
+
+        // $("#user-interest").click(function () {
+
+        //   axios.post(`${baseUrl}/interest/${interests.userid}`, requestBody)
+        //     .then((response) => {
+        //       var interests = response.data
+        //       console.log(response);
+        //       alert("You have added this product to your interest list");
+        //     })
+        //     .catch((error) => {
+        //       console.log(error);
+        //     });
+        // });
       });
   });
-  });
-</script>  -->
+</script>
+
 <body>
 
   <div class="container-xl px-4 mt-4">
@@ -193,45 +280,15 @@
             </form>
             <br>
             <br>
-          <div id='categories'>
-            <h3><i>Users' interests</i></h3>
-            <div id='categoryname'>
-            
-            </div>
+            <form id='interest'>
+              <h3><i>Users' interests</i></h3>
+            </form>
+
           </div>
-         
         </div>
       </div>
     </div>
   </div>
-  <script>
-    // API url
-    const baseUrl = "http://localhost:3000";
-    // hardcoded because we have not added login yet.
-    // const loggedInUserID = 1;
-    const token = localStorage.getItem("token");
-    const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
-    console.log(token, loggedInUserID)
-
-    if (token === null || isNaN(loggedInUserID)) {
-      console.log("not logged in");
-      loginhtml = `<a class='btn btn-dark' href="/Login.html">Login</a>`;
-      $("#loginout").append(loginhtml);
-
-    } else {
-      console.log("logged in");
-      loginhtml2 = `<button class='btn btn-danger'id='logout'>Logout</button>`;
-      $("#loginout").append(loginhtml2);
-
-
-      $("#logout").click(e => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("loggedInUserID");
-        window.location.href = "/";
-      });
-    }
-
-  </script>
 </body>
 
 </html>
