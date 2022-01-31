@@ -41,21 +41,21 @@
 
       if (productID != null) {
 
-        const postHtml = ``;
-        //$("#posts").append(postHtml);
-        axios.get(`${baseUrl}/productname`)
-          .then((response) => {
-            console.log(response.data);
-            const product = response.data
-            for (let i = 0; i < product.length; i++) {
-              const productname = product[i];
-              console.log(productname)
-              $("#productname").append(`<option value="${productname.productid}">${productname.name}</option>`)
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        // const postHtml = ``;
+        // //$("#posts").append(postHtml);
+        // axios.get(`${baseUrl}/productname`)
+        //   .then((response) => {
+        //     console.log(response.data);
+        //     const product = response.data
+        //     for (let i = 0; i < product.length; i++) {
+        //       const productname = product[i];
+        //       console.log(productname)
+        //       $("#productname").append(`<option value="${productname.productid}">${productname.name}</option>`)
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        //   });
 
         $("#post-review").click(function () {
           const productid = productID
@@ -135,7 +135,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="Products.html">Products</a>
+            <a class="nav-link" href="Products.html">Store</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Profile.html">Profile</a>

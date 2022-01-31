@@ -10,7 +10,7 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
-
+  <link href='./css/modern-business.css' rel='stylesheet' type='text/css'>
 
   <!--Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -53,6 +53,28 @@
         </div>`;
 
         $("#product").append(productHtml);
+      })
+      axios.get(`${baseUrl}/product/${productid}/reviews`)
+      .then((response) => {
+        console.log(response);
+        var productHtml = "";
+        const reviews = response.data;
+        console.log("hi")
+        productHtml = `
+            <div class="row">
+        <div class="col-12">
+            <div class="card border-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Reviews</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        ${reviews.review}
+                    </p>
+                    
+                </div>
+            </div>
+        </div>`;
+
+        $("#reviews").append(productHtml);
       })
     axios.get(`${baseUrl}/retrieve/${productid}/image`)
       .then((response) => {
@@ -115,7 +137,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="Products.html">Products</a>
+            <a class="nav-link" href="Products.html">Store</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Profile.html">Profile</a>
@@ -125,15 +147,15 @@
           </li>
           <li class="nav-item" id="loginout">
           </li>
-
+          
         </ul>
       </div>
-
-      <form class="d-flex">
-        <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
+    
+        <form class="d-flex">
+          <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div> 
   </nav>
   <section class="jumbotron text-center">
   </section>
@@ -194,6 +216,11 @@
       </div>
 
     </div>
+    <div class="row" id='reviews'>
+      <!-- Reviews -->
+      <div class="col-12">
+
+      </div>
   </div>
 
 
