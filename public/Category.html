@@ -54,22 +54,16 @@
         <div class="row text-center justify-content-center pt-5 cl-dar" id='Mac'>
           <h2><b> ${categories[i].category}</b></h2>
         </div>
-        <div class="row text-center justify-content-center">
-          <div class="col text-right">
-            <a href="reviews.html?id=${categories[i].category}" class="cl-dar ">Reviews</a>
-          </div>
-          <div class="col text-left">
-            <a href="productinfo.html?id=${categories[i].category}" class="cl-dar ">More info</a>
-          </div>
-        </div>
+       
         <div class="row justify-content-center pt-5">
           <img src="${image}" class="img-fluid">
         </div>
       </div>`;
         $("#categories").append(categoriesHtml);
       }
+      
     });
-
+    
 
   $("#logout").click(e => {
     localStorage.removeItem("token");

@@ -55,7 +55,12 @@
             console.log(post);
             window.location.reload();
      
-          });
+          })
+          .catch((error) => {
+          console.log(error);
+          alert("Product not Added");
+        });
+
       }
     });
 
@@ -81,7 +86,12 @@
             console.log(post);
             window.location.reload();
             
-          });
+          })
+          .catch((error) => {
+          console.log(error);
+          alert("Category not Added");
+        });
+
       }
     });
     $("#addproductpic").click(function () {
@@ -106,7 +116,12 @@
             console.log(post);
             window.location.reload();
             
-          });
+          })
+          .catch((error) => {
+          console.log(error);
+          alert("Product pic not Added");
+        });
+
       }
     });
   });

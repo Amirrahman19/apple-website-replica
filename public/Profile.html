@@ -102,10 +102,19 @@
             window.location.href = "/";
           });
         }
-
-      
       });
+      axios.post("${baseURL}/admin/upload/${userid}", requestBody)
+        .then((response) => {
+          console.log(response);
+          alert("Profile Picture Added");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Profile Picture not Added");
+        });
   });
+
+
 </script>
 
 <body>
