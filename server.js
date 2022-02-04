@@ -33,6 +33,11 @@ app.get("/", (req, res) => {
 //   res.sendFile("/public/admin/index.html", { root: __dirname });
 // });
 
+// app.get("/reviews/:id", (req, res) => {
+//   req.productId = req.params.id
+//   res.sendfile("/public/reviews.html", { root: __dirname })
+// })
+
 app.use(serveStatic(__dirname + "/public"));
 
 

@@ -84,6 +84,31 @@
           });
       }
     });
+    $("#addproductpic").click(function () {
+      const name = $("#categoryName").val();
+      const pic = $("#pic").val();
+
+      const requestBody = {
+        category: name,
+        pic: pic,
+
+      };
+
+      if (token === null || isNaN(loggedInUserID)) {
+        loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
+        $("#loginout").append(loginhtml);
+      } else {
+        axios.post(`${baseUrl}/admin/upload/${userid}`, requestBody, { headers: { "Authorization": "Bearer " + token } })
+          .then((response) => {
+            // reset form value.
+            $("#create-post-form-body-pic").val("");
+            var post = response.data;
+            console.log(post);
+            window.location.reload();
+            
+          });
+      }
+    });
   });
 
 
@@ -330,14 +355,14 @@
                   <div class="form-group">
                     <label class="control-label col-sm-2" for="desc">Image</label>
                     <div class="col-sm-10">
-                      <input type="file" id="myFile" name="filename">
+                      <input type="file" name="filename">
 
                     </div>
                   </div>  
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-success" id='addCategory'>Submit</button>
+                      <button type="submit" class="btn btn-success" id='addproductpic'>Submit</button>
                       <button type="reset" class="btn btn-danger">Reset</button>
                     </div>
                   </div>
