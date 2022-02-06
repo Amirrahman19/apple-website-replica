@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<!-- Admission Number: P2100803
+Name: Haja Amir Rahman
+Class : DAAA/FT/1B/01
+ -->
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -95,36 +100,42 @@
       }
     });
 
-    $("#addproductpic").click(function () {
-      const name = $("#categoryName").val();
-      const pic = $("#pic").val();
+  
+    // $("#editProduct").click(function () {
+    //   const name = $("#name").val();
+    //   const description = $("#description").val();
+    //   const category = $("#category").val();
+    //   const brand = $("#brand").val();
+    //   const price = $("#price").val();
+    //   const requestBody = {
+    //     name: name,
+    //     description: description,
+    //     category: category,
+    //     brand: brand,
+    //     price: price
+    //   };
 
-      const requestBody = {
-        category: name,
-        pic: pic,
+    //   if (token === null || isNaN(loggedInUserID)) {
+    //     loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
+    //     $("#loginout").append(loginhtml);
+    //   } else {
 
-      };
+    //     axios.post(`${baseUrl}/admin/${productid}/update`, requestBody, { headers: { "Authorization": "Bearer " + token } })
+    //       .then((response) => {
+    //         // reset form value.
+    //         $("#create-post-form-body").val("");
+    //         var post = response.data;
+    //         console.log(post);
+    //         window.location.reload();
+  
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //         alert("Product not updated");
+    //       });
 
-      if (token === null || isNaN(loggedInUserID)) {
-        loginhtml = `<a class='btn btn-dark' href="Login.html">Login</a>`;
-        $("#loginout").append(loginhtml);
-      } else {
-        axios.post(`${baseUrl}/admin/upload/${userid}`, requestBody, { headers: { "Authorization": "Bearer " + token } })
-          .then((response) => {
-            // reset form value.
-            $("#create-post-form-body-pic").val("");
-            var post = response.data;
-            console.log(post);
-            window.location.reload();
-
-          })
-          .catch((error) => {
-            console.log(error);
-            alert("Product pic not Added");
-          });
-
-      }
-    });
+    //   }
+    // });
   });
 
 
@@ -214,18 +225,18 @@
           </span>
         </div>
         <div class="card-header">
-          <i class="fa fa-table"></i> Operations on Product Image record
+          <i class="fa fa-table"></i> Edit Product 
           <span>
-            <button data-toggle="modal" data-target="#productImageModal" class="btn btn-success">Add new product
+            <button data-toggle="modal" data-target="#productEditModal" class="btn btn-success">Edit product
               image</button>
 
           </span>
         </div>
         <div class="card-header">
-          <i class="fa fa-table"></i> Operations on Category Image record
+          <i class="fa fa-table"></i> Delete Product
           <span>
-            <button data-toggle="modal" data-target="#categoryImageModal" class="btn btn-success">Add new category
-              image</button>
+            <button data-toggle="modal" data-target="#DeleteModal" class="btn btn-success">Delete product
+           </button>
 
           </span>
         </div>
@@ -359,39 +370,7 @@
             </div>
           </div>
         </div>
-        <div class="modal fade" id="productImageModal" tabindex="-1" role="dialog"
-          aria-labelledby="productAddModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="productAddModalLabel">Add product image</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"></span>
-                </button>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="desc">Image</label>
-                <div class="col-sm-10">
-                  <input type="file" name="filename">
-
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <button type="submit" class="btn btn-success" id='addproductpic'>Submit</button>
-                  <button type="reset" class="btn btn-danger">Reset</button>
-                </div>
-              </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-
-            </div>
-          </div>
-        </div>
+        
       </div>
       <!--Product Edit Model-->
       <div class="modal fade" id="productEditModal" tabindex="-1" role="dialog" aria-labelledby="productEditModalLabel"
@@ -407,25 +386,43 @@
             <div class="modal-body">
               <form class="form-horizontal" action="#">
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="productName">Product:</label>
+                  <label class="control-label col-sm-2" for="productName">Name:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" value="Product one" id="productName"
-                      placeholder="Enter Product Name">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2" for="price">Price:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" value="70$" id="price" placeholder="Enter Product price">
+                    <input type="text" class="form-control" id="name" placeholder="Enter Product Name">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="desc">Description:</label>
                   <div class="col-sm-10">
-                    <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"></textarea>
+                    <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
+                      id="description"></textarea>
 
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="desc">Category:</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" placeholder="Enter Product category" id="category">
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="desc">Brand:</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" rows="5" cols="2" placeholder="Enter product description"
+                      id="brand"></textarea>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="price">Price:</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" placeholder="Enter Product price" id="price">
+                  </div>
+                </div>
+
+              </form>
+            </div>
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-success">Update</button>
@@ -473,299 +470,7 @@
       <!-- Custom scripts for this page-->
       <script src="js/sb-admin-datatables.min.js"></script>
     </div>
-    <!-- <div>
-              <div class="container">
-                <nav class="nav">
-                    <a class="nav-link" href="/">Home</a>
-                    <a class="nav-link" href="/admin/users/">All Users</a>
-                </nav>
-        
-                <h1>All Users</h1>
-                <ul class="list-group" id="users">
-        
-                </ul>
-            </div>
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-                crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"></script>
-            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-            <script>
-                const baseUrl = "http://localhost:3000";
-                axios.get(`${baseUrl}/users/`)
-                    .then((response) => {
-                        const users = response.data;
-                        for (let i = 0; i < users.length; i++) {
-                            const user = users[i];
-                            const html = `
-                            <li class="list-group-item">
-                                <a href="/users/${user.id}">${user.full_name}</a>
-                            </li>
-                            `;
-                            $("#users").append(html);
-                        }
-                    });
-            </script>
-            </div> -->
-    <!--        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Office</th>
-                  <th>Age</th>
-                  <th>Start date</th>
-                  <th>Actions</th>
-                </tr>
-              </tfoot>
-              <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Garrett Winters</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>63</td>
-                  <td>2011/07/25</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Ashton Cox</td>
-                  <td>Junior Technical Author</td>
-                  <td>San Francisco</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Cedric Kelly</td>
-                  <td>Senior Javascript Developer</td>
-                  <td>Edinburgh</td>
-                  <td>22</td>
-                  <td>2012/03/29</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Airi Satou</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>33</td>
-                  <td>2008/11/28</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Brielle Williamson</td>
-                  <td>Integration Specialist</td>
-                  <td>New York</td>
-                  <td>61</td>
-                  <td>2012/12/02</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Herrod Chandler</td>
-                  <td>Sales Assistant</td>
-                  <td>San Francisco</td>
-                  <td>59</td>
-                  <td>2012/08/06</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Rhona Davidson</td>
-                  <td>Integration Specialist</td>
-                  <td>Tokyo</td>
-                  <td>55</td>
-                  <td>2010/10/14</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Colleen Hurst</td>
-                  <td>Javascript Developer</td>
-                  <td>San Francisco</td>
-                  <td>39</td>
-                  <td>2009/09/15</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Sonya Frost</td>
-                  <td>Software Engineer</td>
-                  <td>Edinburgh</td>
-                  <td>23</td>
-                  <td>2008/12/13</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Jena Gaines</td>
-                  <td>Office Manager</td>
-                  <td>London</td>
-                  <td>30</td>
-                  <td>2008/12/19</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Quinn Flynn</td>
-                  <td>Support Lead</td>
-                  <td>Edinburgh</td>
-                  <td>22</td>
-                  <td>2013/03/03</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Charde Marshall</td>
-                  <td>Regional Director</td>
-                  <td>San Francisco</td>
-                  <td>36</td>
-                  <td>2008/10/16</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Haley Kennedy</td>
-                  <td>Senior Marketing Designer</td>
-                  <td>London</td>
-                  <td>43</td>
-                  <td>2012/12/18</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Tatyana Fitzpatrick</td>
-                  <td>Regional Director</td>
-                  <td>London</td>
-                  <td>19</td>
-                  <td>2010/03/17</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Michael Silva</td>
-                  <td>Marketing Designer</td>
-                  <td>London</td>
-                  <td>66</td>
-                  <td>2012/11/27</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Paul Byrd</td>
-                  <td>Chief Financial Officer (CFO)</td>
-                  <td>New York</td>
-                  <td>64</td>
-                  <td>2010/06/09</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Gloria Little</td>
-                  <td>Systems Administrator</td>
-                  <td>New York</td>
-                  <td>59</td>
-                  <td>2009/04/10</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Bradley Greer</td>
-                  <td>Software Engineer</td>
-                  <td>London</td>
-                  <td>41</td>
-                  <td>2012/10/13</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Dai Rios</td>
-                  <td>Personnel Lead</td>
-                  <td>Edinburgh</td>
-                  <td>35</td>
-                  <td>2012/09/26</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#productEditModal" class="btn btn-info">Edit</button>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-      </div>
-    </div>-->
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
-
-    <!-- Scroll to Top Button-->
+    
 </body>
 
 </html>

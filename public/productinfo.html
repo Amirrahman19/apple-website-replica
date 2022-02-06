@@ -1,3 +1,8 @@
+<!-- Admission Number: P2100803
+Name: Haja Amir Rahman
+Class : DAAA/FT/1B/01
+ -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -11,6 +16,11 @@
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
   <link href='./css/modern-business.css' rel='stylesheet' type='text/css'>
+  <style>
+    .checked {
+      color: orange;
+    }
+  </style>
 
   <!--Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -60,21 +70,40 @@
         var productHtml = "";
         const reviews = response.data;
         console.log("hi")
-        productHtml = `
-            <div class="row">
-        <div class="col-12">
-            <div class="card border-light mb-3">
-                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Reviews</div>
-                <div class="card-body">
-                    <p class="card-text">
-                        ${reviews.review}
-                    </p>
-                    
+
+        productHtml = ` <div class="row">
+            <div class="col-12">
+                <div class="card border-light mb-3">
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-align-justify"></i> Reviews</div><div class="card-body">`;
+
+        for (var i = 0; i < reviews.length; i++) {
+          rating = parseInt(reviews[i].rating);
+
+          productHtml += `<p class="card-text" > ${reviews[i].username}</p><p class="card-text">`;
+
+          for (var j = 0; j < 10; j++) {
+            if (j < rating) {
+              productHtml += `<span class="fa fa-star checked"></span>`;
+            } else {
+              productHtml += `<span class="fa fa-star"></span>`;
+            }
+          }
+
+
+          productHtml += `</p>
+          <p class="card-text">
+            ${reviews[i].review}
+          </p ><hr>`;
+
+
+        }
+
+        productHtml += `</div>
                 </div>
-            </div>
-        </div>`;
+            </div></div> `;
 
         $("#reviews").append(productHtml);
+
       })
     axios.get(`${baseUrl}/retrieve/${productid}/image`)
       .then((response) => {

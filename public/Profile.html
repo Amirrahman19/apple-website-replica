@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<!-- Admission Number: P2100803
+Name: Haja Amir Rahman
+Class : DAAA/FT/1B/01
+ -->
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,8 +14,6 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/modern-business.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
-    integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous"> -->
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -103,16 +106,48 @@
           });
         }
       });
-    axios.post("${baseURL}/admin/upload/${userid}", requestBody)
+  });
+
+
+</script>
+<script>
+  $(document).ready(function () {
+    $("#input_file").change(function () {
+      var formData = new FormData();
+      var imagefile = document.querySelector("#input_file");
+      formData.append("productImage", imagefile.files[0]);
+      axios.post(`${baseUrl}/users/upload/${loggedInUserID}`, formData, { headers: { "Authorization": "Bearer " + token, "Content-Type": "multipart/form-data" } })
+        .then((response) => {
+          console.log(response);
+          location.href = "Profile.html";
+        });
+
+    });
+
+
+
+    axios.get(`${baseUrl}/users/${loggedInUserID}/`)
       .then((response) => {
         console.log(response);
-        alert("Profile Picture Added");
+        var user = response.data;
+
+        $("#profilePic").attr("src", baseUrl + "/upload/" + user.profile_pic_url);
+
+        $("#inputUsername").val(user.username);
+        $("#inputRole").val(user.role);
+        $("#inputEmailAddress").val(user.email);
+        $("#inputPhone").val(user.contact);
+
       })
       .catch((error) => {
         console.log(error);
-        alert("Profile Picture not Added");
-      });
+      })
   });
+
+  function uploadClicked() {
+    $("#input_file").click();
+
+  }
 
 
 </script>
@@ -175,12 +210,14 @@
           <div class="card-header">Profile Picture</div>
           <div class="card-body text-center">
             <!-- Profile picture image-->
-            <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png"
-              alt="">
+            <img id="profilePic" class="img-account-profile rounded-circle mb-2"
+              src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
             <!-- Profile picture help block-->
             <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
             <!-- Profile picture upload button-->
-            <button class="btn btn-primary" type="button">Upload new image</button>
+            <input type="file" id="input_file" accept="image/*" hidden>
+            <button id="upload_button" class="btn btn-primary" type="button" onclick="uploadClicked();">Upload new
+              image</button>
           </div>
         </div>
       </div>
@@ -199,33 +236,16 @@
               </div>
               <!-- Form Row-->
               <div class="row gx-3 mb-3">
-                <!-- Form Group (first name)-->
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputFirstName">First name</label>
-                  <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name"
-                    value="Valerie">
-                </div>
-                <!-- Form Group (last name)-->
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputLastName">Last name</label>
-                  <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name"
-                    value="Luna">
-                </div>
               </div>
               <!-- Form Row        -->
               <div class="row gx-3 mb-3">
                 <!-- Form Group (organization name)-->
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputOrgName">Organization name</label>
-                  <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name"
+                  <label class="small mb-1" for="inputOrgName">Role</label>
+                  <input class="form-control" id="inputRole" type="text" placeholder="Enter your organization name"
                     value="Start Bootstrap">
                 </div>
-                <!-- Form Group (location)-->
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation">Location</label>
-                  <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location"
-                    value="San Francisco, CA">
-                </div>
+             
               </div>
               <!-- Form Group (email address)-->
               <div class="mb-3">
@@ -241,12 +261,7 @@
                   <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number"
                     value="555-123-4567">
                 </div>
-                <!-- Form Group (birthday)-->
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Birthday</label>
-                  <input class="form-control" id="inputBirthday" type="text" name="birthday"
-                    placeholder="Enter your birthday" value="06/10/1988">
-                </div>
+             
               </div>
               <!-- Save changes button-->
               <button class="btn btn-primary" type="button">Save changes</button>

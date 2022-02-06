@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<!-- Admission Number: P2100803
+Name: Haja Amir Rahman
+Class : DAAA/FT/1B/01
+ -->
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,41 +20,6 @@
     integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-
-<!-- <script>
-  axios.get(`${baseUrl}/retrieve/product/`)
-      .then((response) => {
-        console.log(response);
-        var productsHtml = "";
-        const products = response.data;
-        console.log("hi")
-        products.forEach((products) => {
-
-          if (products.product_image == null || products.product_image == "") {
-            image = "images/macbook_large.jpg";
-          } else {
-            image = baseUrl + "/upload/" + products.product_image;
-
-          }
-
-          console.log(image)
-          productsHtml = `
-          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-     
-    </div>`;
-    
-      productdetails +=`
-      <div class="carousel-item">
-        <img class="d-block w-100" src="${image}" alt="${products.name}">
-      </div>
-      `;
-    
-          $("#products").append(productsHtml);
-        });
-      })
-
-</script> -->
 
 <body>
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -88,19 +58,6 @@
   </nav>
   <header>
 
-    <!-- 
-  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="" alt="">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="" alt="">
-      </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="" alt="">
-      </div>
-    </div> -->
 
     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -175,42 +132,7 @@
       <img src="./images/Picture3-200_200.png" class="img-fluid" id="nativeapp_2">
     </div>
   </div>
-  <!-- third Image area Ended -->
-  <!--Columns started-->
-  <div class="w-screen mt-4">
 
-    <div class="row">
-      <div class="col-lg-6 portfolio-item" style="height: 500px;">
-        <div class="card h-100 new-genration" style="border: 0px;border-radius: 0px;">
-          <div class="card-body text-center">
-            <h4 class="card-title">
-              <label class="cl-dark">Turn up summer</label>
-            </h4>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 portfolio-item">
-        <div class="card h-100 behind-the-mac" style="border: 0px;border-radius: 0px;">
-          <div class="card-body text-center" style="position: absolute;bottom: 0;right: 29%;">
-            <h4 class="card-title" style="vertical-align: bottom;">
-              <label class="cl-white">Turn up summer</label>
-            </h4>
-            <p class="card-text cl-white">Lorem ipsum dolor sit amet, consectetur.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12 portfolio-item">
-        <div class="card h-100 bg-white" style="border: 0px;border-radius: 0px;">
-          <div class="card-body text-center">
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
 
 
 </body>
